@@ -22,3 +22,11 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+	•	/workingTimes/:userID
+	•	/workingTime/:userID
+	•	/clock/:userID
+	•	/chartManager/:userID
+	•	/user pour la gestion des utilisateurs.
+# VueTimeManager
