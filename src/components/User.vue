@@ -23,8 +23,8 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      userId: 1, // ID par défaut
-      user: null, // Détails utilisateur récupérés
+      userId: 1,
+      user: null,
       newUser: {
         name: '',
         email: ''

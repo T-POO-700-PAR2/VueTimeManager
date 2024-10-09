@@ -16,11 +16,19 @@ export default {
   components: {
     Bar
   },
-  props: {
-    chartData: {
-      type: Object,
-      required: true
-    }
+  data() {
+    return {
+      chartData: {
+        labels: ['January', 'February', 'March', 'April', 'May'],
+        datasets: [
+          {
+            label: 'Work Hours',
+            backgroundColor: '#42A5F5',
+            data: [40, 39, 30, 35, 38]
+          }
+        ]
+      }
+    };
   }
 }
 </script>
