@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import axios from 'axios'; // Importation d'axios pour les requêtes HTTP
+import axios from 'axios';
 import App from './App.vue';
 import User from './components/User.vue';
 import WorkingTimes from './components/WorkingTimes.vue';
