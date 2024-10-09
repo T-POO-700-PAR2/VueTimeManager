@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       userId: 1,
-      clockIn: false, // Par défaut, on suppose que l'utilisateur n'est pas pointé
+      clockIn: false,
     };
   },
   methods: {
@@ -21,7 +21,7 @@ export default {
 
       this.$axios.post(endpoint)
         .then(() => {
-          // On inverse l'état de "clockIn" après une réponse réussie
+
           this.clockIn = !this.clockIn;
         })
         .catch(error => {
