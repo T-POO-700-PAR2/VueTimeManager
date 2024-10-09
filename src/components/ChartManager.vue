@@ -29,7 +29,6 @@ export default {
         .then(response => {
           const data = response.data;
 
-          // Vérification que les données existent avant le formatage
           if (data) {
             this.barChartData = this.formatBarChartData(data);
             this.lineChartData = this.formatLineChartData(data);
@@ -43,7 +42,6 @@ export default {
         });
     },
     formatBarChartData(data) {
-      // Formatage des données pour le graphique en barres
       return {
         labels: data.map(item => item.date),
         datasets: [{
@@ -54,7 +52,6 @@ export default {
       };
     },
     formatLineChartData(data) {
-      // Formatage des données pour le graphique en lignes
       return {
         labels: data.map(item => item.date),
         datasets: [{
@@ -65,7 +62,6 @@ export default {
       };
     },
     formatPieChartData(data) {
-      // Formatage des données pour le graphique en camembert
       return {
         labels: data.map(item => item.date),
         datasets: [{
