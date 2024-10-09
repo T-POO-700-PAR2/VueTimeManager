@@ -38,7 +38,7 @@ export default {
           this.user = response.data;
         })
         .catch(error => {
-          console.error('Erreur:', error);
+          console.error('Erreur lors de la création de l\'utilisateur :', error);
         });
     },
     getUser() {
@@ -47,7 +47,7 @@ export default {
           this.user = response.data;
         })
         .catch(error => {
-          console.error('Erreur:', error);
+          console.error('Erreur lors de la récupération de l\'utilisateur :', error);
         });
     }
   }

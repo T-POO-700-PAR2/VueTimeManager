@@ -1,22 +1,79 @@
 <template>
   <div>
-    <h2>Chart Manager</h2>
-    <BarChart />
-    <LineChart />
-    <PieChart />
+    <h3>Bar Chart</h3>
+    <canvas id="bar-chart"></canvas>
+
+    <h3>Line Chart</h3>
+    <canvas id="line-chart"></canvas>
+
+    <h3>Pie Chart</h3>
+    <canvas id="pie-chart"></canvas>
   </div>
 </template>
 
 <script>
-import BarChart from './charts/BarChart.vue';
-import LineChart from './charts/LineChart.vue';
-import PieChart from './charts/PieChart.vue';
-
 export default {
-  components: {
-    BarChart,
-    LineChart,
-    PieChart
-  }
+  data() {
+    return {
+      barChartData: null,
+      lineChartData: null,
+      pieChartData: null,
+    };
+  },
+  mounted() {
+    this.loadChartData();
+  },
+  methods: {
+    loadChartData() {
+      this.$axios.get('/working_times?user_id=1')
+        .then(response => {
+          const data = response.data;
+
+          // Vérification que les données existent avant le formatage
+          if (data) {
+            this.barChartData = this.formatBarChartData(data);
+            this.lineChartData = this.formatLineChartData(data);
+            this.pieChartData = this.formatPieChartData(data);
+          } else {
+            console.error('Pas de données trouvées pour les graphiques.');
+          }
+        })
+        .catch(error => {
+          console.error('Erreur lors du chargement des données du graphique :', error);
+        });
+    },
+    formatBarChartData(data) {
+      // Formatage des données pour le graphique en barres
+      return {
+        labels: data.map(item => item.date),
+        datasets: [{
+          label: 'Heures de travail',
+          backgroundColor: '#42A5F5',
+          data: data.map(item => item.hours_worked),
+        }],
+      };
+    },
+    formatLineChartData(data) {
+      // Formatage des données pour le graphique en lignes
+      return {
+        labels: data.map(item => item.date),
+        datasets: [{
+          label: 'Heures de travail',
+          borderColor: '#66BB6A',
+          data: data.map(item => item.hours_worked),
+        }],
+      };
+    },
+    formatPieChartData(data) {
+      // Formatage des données pour le graphique en camembert
+      return {
+        labels: data.map(item => item.date),
+        datasets: [{
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+          data: data.map(item => item.hours_worked),
+        }],
+      };
+    },
+  },
 };
 </script>

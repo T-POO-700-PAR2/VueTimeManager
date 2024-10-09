@@ -29,4 +29,3 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 	•	/clock/:userID
 	•	/chartManager/:userID
 	•	/user pour la gestion des utilisateurs.
-# VueTimeManager

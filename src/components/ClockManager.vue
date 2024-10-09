@@ -1,8 +1,7 @@
 <template>
   <div>
-    <h2>Clock In/Out</h2>
-    <div v-if="clockIn">You clocked in at: {{ startDateTime }}</div>
-    <button @click="toggleClock">{{ clockIn ? 'Clock Out' : 'Clock In' }}</button>
+    <h2>Gestion des horaires pour l'utilisateur {{ userId }}</h2>
+    <button @click="clockInOut">{{ clockIn ? 'Pointer Sortie' : 'Pointer Entrée' }}</button>
   </div>
 </template>
 
@@ -10,19 +9,25 @@
 export default {
   data() {
     return {
-      startDateTime: null,
-      clockIn: false
+      userId: 1,
+      clockIn: false, // Par défaut, on suppose que l'utilisateur n'est pas pointé
     };
   },
   methods: {
-    toggleClock() {
-      this.clockIn = !this.clockIn;
-      this.startDateTime = this.clockIn ? new Date().toISOString().slice(0, 19).replace('T', ' ') : null;
-    }
-  }
-}
-</script>
+    clockInOut() {
+      const endpoint = this.clockIn
+        ? `/clocks/${this.userId}/clock_out`
+        : `/clocks/${this.userId}/clock_in`;
 
-<style scoped>
-/* Style pour ClockManager */
-</style>
+      this.$axios.post(endpoint)
+        .then(() => {
+          // On inverse l'état de "clockIn" après une réponse réussie
+          this.clockIn = !this.clockIn;
+        })
+        .catch(error => {
+          console.error('Erreur lors du changement d\'état de l\'horloge :', error);
+        });
+    },
+  },
+};
+</script>
