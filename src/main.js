@@ -8,7 +8,6 @@ import WorkingTime from './components/WorkingTime.vue';
 import ClockManager from './components/ClockManager.vue';
 import ChartManager from './components/ChartManager.vue';
 
-// Toujours utiliser l'API Heroku
 axios.defaults.baseURL = 'https://time-manager-par2-58868fe31538.herokuapp.com/api';
 
 const routes = [

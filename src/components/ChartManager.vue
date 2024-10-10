@@ -23,21 +23,19 @@ export default {
     };
   },
   mounted() {
-    // Enregistrer les types et éléments de graphiques nécessaires
     Chart.register(
       BarController,
       LineController,
       PieController,
       BarElement,
       LineElement,
-      PointElement,      // Ajout de PointElement pour le graphique en ligne
+      PointElement,
       ArcElement,
       CategoryScale,
       LinearScale,
       Title
     );
 
-    // Charger les données des graphiques
     this.loadChartData();
   },
   methods: {
@@ -60,21 +58,18 @@ export default {
         });
     },
     renderCharts() {
-      // Bar chart
       const ctxBar = document.getElementById('bar-chart').getContext('2d');
       new Chart(ctxBar, {
         type: 'bar',
         data: this.barChartData,
       });
 
-      // Line chart
       const ctxLine = document.getElementById('line-chart').getContext('2d');
       new Chart(ctxLine, {
         type: 'line',
         data: this.lineChartData,
       });
 
-      // Pie chart
       const ctxPie = document.getElementById('pie-chart').getContext('2d');
       new Chart(ctxPie, {
         type: 'pie',
@@ -97,7 +92,7 @@ export default {
         datasets: [{
           label: 'Heures de travail',
           borderColor: '#66BB6A',
-          pointBackgroundColor: '#FF6384',  // Points color
+          pointBackgroundColor: '#FF6384',
           data: data.data.map(item => new Date(item.end) - new Date(item.start)),
         }],
       };
