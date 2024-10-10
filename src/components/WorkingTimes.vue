@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     getWorkingTimes() {
-      this.$axios.get(`/working_times?user_id=${this.userId}`)
+      this.$axios.get(`https://time-manager-par2-58868fe31538.herokuapp.com/api/working_times?user_id=${this.userId}`)
         .then(response => {
           this.workingTimes = response.data;
         })

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h2>Manage Working Time</h2>
-    <input v-model="startTime" placeholder="Start Time" />
-    <input v-model="endTime" placeholder="End Time" />
-    <button @click="createWorkingTime">Add Working Time</button>
-    <button @click="updateWorkingTime">Update Working Time</button>
-    <button @click="deleteWorkingTime">Delete Working Time</button>
+    <h2>Gestion des temps de travail</h2>
+    <input v-model="startTime" placeholder="Heure de début" />
+    <input v-model="endTime" placeholder="Heure de fin" />
+    <button @click="createWorkingTime">Ajouter un temps de travail</button>
+    <button @click="updateWorkingTime">Mettre à jour un temps de travail</button>
+    <button @click="deleteWorkingTime">Supprimer un temps de travail</button>
   </div>
 </template>
 
@@ -20,18 +20,38 @@ export default {
   },
   methods: {
     createWorkingTime() {
-      // Logique pour ajouter une nouvelle heure de travail
+      this.$axios.post('https://time-manager-par2-58868fe31538.herokuapp.com/api/working_times', {
+        working_time: {
+          start: this.startTime,
+          end: this.endTime,
+          user_id: 1,
+        }
+      }).then(() => {
+        console.log('Temps de travail créé');
+      }).catch(error => {
+        console.error('Erreur lors de la création du temps de travail:', error);
+      });
     },
     updateWorkingTime() {
-      // Logique pour mettre à jour une heure de travail
+      this.$axios.put(`https://time-manager-par2-58868fe31538.herokuapp.com/api/working_times/${this.workingTimeId}`, {
+        working_time: {
+          start: this.startTime,
+          end: this.endTime
+        }
+      }).then(() => {
+        console.log('Temps de travail mis à jour');
+      }).catch(error => {
+        console.error('Erreur lors de la mise à jour du temps de travail:', error);
+      });
     },
     deleteWorkingTime() {
-      // Logique pour supprimer une heure de travail
+      this.$axios.delete(`https://time-manager-par2-58868fe31538.herokuapp.com/api/working_times/${this.workingTimeId}`)
+        .then(() => {
+          console.log('Temps de travail supprimé');
+        }).catch(error => {
+          console.error('Erreur lors de la suppression du temps de travail:', error);
+        });
     }
   }
 }
 </script>
-
-<style scoped>
-/* Style pour la gestion des heures de travail */
-</style>

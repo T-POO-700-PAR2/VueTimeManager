@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     createUser() {
-      axios.post('/api/users', this.newUser)
+      axios.post('https://time-manager-par2-58868fe31538.herokuapp.com/api/users', this.newUser)
         .then(response => {
           this.user = response.data;
         })
@@ -42,7 +42,7 @@ export default {
         });
     },
     getUser() {
-      axios.get(`/api/users/${this.userId}`)
+      axios.get(`https://time-manager-par2-58868fe31538.herokuapp.com/api/users/${this.userId}`)
         .then(response => {
           this.user = response.data;
         })

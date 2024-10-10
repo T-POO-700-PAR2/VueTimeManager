@@ -15,14 +15,21 @@ export default {
   },
   methods: {
     clockInOut() {
-      const endpoint = this.clockIn
-        ? `/clocks/${this.userId}/clock_out`
-        : `/clocks/${this.userId}/clock_in`;
+      // Définit l'heure actuelle en format ISO
+      const currentTime = new Date().toISOString();
 
-      this.$axios.post(endpoint)
+      // Créer les données à envoyer pour le pointage
+      const payload = {
+        clock: {
+          user_id: this.userId,
+          status: !this.clockIn, // Change l'état selon que l'utilisateur pointe entrée ou sortie
+          time: currentTime
+        }
+      };
+
+      this.$axios.post('https://time-manager-par2-58868fe31538.herokuapp.com/api/clocks', payload)
         .then(() => {
-
-          this.clockIn = !this.clockIn;
+          this.clockIn = !this.clockIn; // Inverse l'état après un succès
         })
         .catch(error => {
           console.error('Erreur lors du changement d\'état de l\'horloge :', error);
