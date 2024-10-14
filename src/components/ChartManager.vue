@@ -111,7 +111,7 @@ export default {
 </script>
 <style scoped>
 div {
-  height: 15rem;
+  height: 55rem;
   display: flex;
   flex-direction: column;
   align-items: center;

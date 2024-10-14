@@ -11,6 +11,7 @@ import TeamsComponent from './components/TeamsComponent.vue';
 import Login from './components/LoginPage.vue';
 import Signup from './components/SignupPage.vue';
 import { auth } from '../firebase';
+
 axios.defaults.baseURL = 'https://time-manager-par2-58868fe31538.herokuapp.com/api';
 
 const routes = [
@@ -33,13 +34,12 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  auth.onAuthStateChanged((user) => {
-    if (protectedRoutes.includes(to.path) && !user) {
-      next('/login');
-    } else {
-      next();
-    }
-  });
+  const user = auth.currentUser;
+  if (protectedRoutes.includes(to.path) && !user) {
+    next('/login');
+  } else {
+    next();
+  }
 });
 
 const app = createApp(App);
