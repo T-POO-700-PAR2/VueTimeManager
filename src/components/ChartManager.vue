@@ -1,13 +1,13 @@
 <template>
   <div>
     <h3>Bar Chart</h3>
-    <canvas id="bar-chart"></canvas>
+    <canvas class="bar" id="bar-chart"></canvas>
 
     <h3>Line Chart</h3>
-    <canvas id="line-chart"></canvas>
+    <canvas class="line" id="line-chart"></canvas>
 
     <h3>Pie Chart</h3>
-    <canvas id="pie-chart"></canvas>
+    <canvas class="pie" id="pie-chart"></canvas>
   </div>
 </template>
 
@@ -109,3 +109,12 @@ export default {
   },
 };
 </script>
+<style scoped>
+div {
+  height: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: auto;
+}
+</style>
