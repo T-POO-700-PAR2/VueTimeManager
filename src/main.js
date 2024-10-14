@@ -26,7 +26,7 @@ const routes = [
   { path: '/signup', component: Signup },
 ];
 
-const protectedRoutes = ['/workingTimes', '/clock', '/teams', '/user'];
+const protectedRoutes = ['/workingTimes', '/clock', '/teams', '/user','/'];
 
 const router = createRouter({
   history: createWebHistory(),
