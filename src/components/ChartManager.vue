@@ -1,18 +1,67 @@
 <template>
   <div>
-    <h3>Bar Chart</h3>
-    <canvas class="bar" id="bar-chart"></canvas>
+    <h1>Time Management and Work Conditions Overview</h1>
+    
+    <!-- Div fixe -->
+    <div class="fixed-div">
+      <h3>Méteo</h3>
+      <Meteo></Meteo>
+    </div>
 
-    <h3>Line Chart</h3>
-    <canvas class="line" id="line-chart"></canvas>
-
-    <h3>Pie Chart</h3>
-    <canvas class="pie" id="pie-chart"></canvas>
+    <div class="card-container">
+      <!-- Bar Chart Card -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Work Hours Distribution by Category</h3>
+        </div>
+        <div class="card-body">
+          <canvas class="bar" id="bar-chart"></canvas>
+          <p>
+            This bar chart displays the distribution of work hours among employees, managers, 
+            and the general manager. It helps visualize how time is spent across different 
+            categories, shedding light on the workload disparity and areas of concern, such as 
+            excessive working hours.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Line Chart Card -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Employee Performance Over Time</h3>
+        </div>
+        <div class="card-body">
+          <canvas class="line" id="line-chart"></canvas>
+          <p>
+            This line chart tracks the daily and weekly performance of employees over a selected 
+            period. It helps managers and the general manager monitor trends in productivity, 
+            spot unusual patterns, and ensure employees are not overworked due to extended shifts.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Pie Chart Card -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Complaints and Work Conditions Breakdown</h3>
+        </div>
+        <div class="card-body">
+          <canvas class="pie" id="pie-chart"></canvas>
+          <p>
+            This pie chart shows the percentage of employee complaints regarding various aspects 
+            of their work conditions, such as long shifts, the city's deplorable state, and other 
+            concerns like Batman’s lack of scruples. It helps the town hall understand the most 
+            pressing issues and take corrective measures to improve working conditions.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { Chart, BarController, LineController, PieController, BarElement, LineElement, ArcElement, PointElement, CategoryScale, LinearScale, Title } from 'chart.js';
+import Meteo from './meteo.vue';
 
 export default {
   data() {
@@ -21,6 +70,9 @@ export default {
       lineChartData: null,
       pieChartData: null,
     };
+  },
+  components: {
+   Meteo 
   },
   mounted() {
     Chart.register(
@@ -110,11 +162,125 @@ export default {
 };
 </script>
 <style scoped>
-div {
-  height: 55rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: auto;
+h1{
+  margin-top: 2%;
 }
+  /* Style global pour la page */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f9;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+  }
+
+  /* Style pour la div fixe */
+  .fixed-div {
+    position: fixed;
+    top: 226px; /* Ajuste cette valeur selon la hauteur souhaitée */
+    right: 20px; /* Place à droite avec un peu de marge */
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    z-index: 1000; /* Pour s'assurer qu'elle reste visible au-dessus du reste */
+  }
+
+  .fixed-div h3 {
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .fixed-div ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .fixed-div ul li {
+    margin-bottom: 8px;
+  }
+
+  .fixed-div ul li a {
+    text-decoration: none;
+    color: #2c3e50;
+    font-size: 0.9em;
+  }
+
+  .fixed-div ul li a:hover {
+    text-decoration: underline;
+  }
+
+  /* Style pour les cards */
+  .card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    padding: 15px;
+    transition: transform 0.3s;
+    max-width: 385px;
+    margin: 0 auto 20px auto; /* centrage et espace entre les cards */
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+  }
+
+  .card-header h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.3em;
+  }
+
+  .card-body {
+    margin-top: 15px;
+  }
+
+  .card p {
+    color: #666;
+    font-size: 0.85em;
+    line-height: 1.4;
+  }
+
+  /* Style des graphiques */
+  canvas {
+    width: 100% !important;
+    max-width: 100%;
+    height: auto !important;
+    margin-bottom: 10px;
+  }
+
+  /* Style pour le conteneur des cards */
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .fixed-div {
+      top: auto;
+      bottom: 20px;
+      right: 10px;
+      width: 160px; /* Réduire un peu la largeur sur mobile */
+    }
+
+    .card {
+      padding: 10px;
+    }
+
+    .card-header h3 {
+      font-size: 1.1em;
+    }
+  }
 </style>
