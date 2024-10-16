@@ -1,25 +1,32 @@
 <template>
-    <div class="meteo-container">
-        <div v-if="selectedCity" class="city-info">
-            <h2>{{ selectedCity.city }}</h2>
-            <span class="temperature">{{ selectedCity.temperature }}°C</span>
-            <p class="condition">Condition: {{ selectedCity.condition }}</p>
-            <p class="details">Humidité: {{ selectedCity.humidity }}% | Vent: {{ selectedCity.wind_speed }} km/h</p>
-        </div>
-
-        <div class="buttons">
-            <router-link to="/">
-                <button @click="showRandomCity">
-                    Changer la ville
-                </button>
-            </router-link>
-            <router-link to="/meteo">
-                <button >
-                    Rechercher une ville spécifique
-                </button>
-            </router-link>
-        </div>
+  <div class="meteo-container">
+    <div
+      v-if="selectedCity"
+      class="city-info"
+    >
+      <h2>{{ selectedCity.city }}</h2>
+      <span class="temperature">{{ selectedCity.temperature }}°C</span>
+      <p class="condition">
+        Condition: {{ selectedCity.condition }}
+      </p>
+      <p class="details">
+        Humidité: {{ selectedCity.humidity }}% | Vent: {{ selectedCity.wind_speed }} km/h
+      </p>
     </div>
+
+    <div class="buttons">
+      <router-link to="/">
+        <button @click="showRandomCity">
+          Changer la ville
+        </button>
+      </router-link>
+      <router-link to="/meteo">
+        <button>
+          Rechercher une ville spécifique
+        </button>
+      </router-link>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -27,19 +34,19 @@ import { getAllDataMeteo, getNameContry } from './service/api';
 
 export default {
     name: 'MeteoComponent',
-    data() {
-        return {
-            cities: [],
-            nomCities: [],
-            selectedCity: null
-        };
-    },
     props: {
         handleClick: {
             type: Function,
             required: false,
             default: null
         }
+    },
+    data() {
+        return {
+            cities: [],
+            nomCities: [],
+            selectedCity: null
+        };
     },
     mounted() {
         const allDataCities = getAllDataMeteo();

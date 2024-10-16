@@ -2,7 +2,10 @@
   <div>
     <h2>Liste des équipes</h2>
     <ul v-if="teams.length > 0">
-      <li v-for="team in teams" :key="team.id">
+      <li
+        v-for="team in teams"
+        :key="team.id"
+      >
         {{ team.name }}
       </li>
     </ul>

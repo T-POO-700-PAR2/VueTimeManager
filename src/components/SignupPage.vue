@@ -5,15 +5,32 @@
       <form @submit.prevent="signup">
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" v-model="email" required />
+          <input
+            v-model="email"
+            type="email"
+            required
+          >
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" v-model="password" required />
+          <input
+            v-model="password"
+            type="password"
+            required
+          >
         </div>
-        <button type="submit" class="btn-primary">Sign Up</button>
+        <button
+          type="submit"
+          class="btn-primary"
+        >
+          Sign Up
+        </button>
       </form>
-      <p>Already have an account? <router-link to="/login">Login</router-link></p>
+      <p>
+        Already have an account? <router-link to="/login">
+          Login
+        </router-link>
+      </p>
     </div>
   </div>
 </template>

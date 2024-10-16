@@ -1,29 +1,59 @@
 <template>
-    <div class="meteo-container">
-        <h1>Metéo</h1>
-        <input type="text" v-model="searchQuery" placeholder="Rechercher une ville" />
+  <div class="meteo-container">
+    <h1>Metéo</h1>
+    <input
+      v-model="searchQuery"
+      type="text"
+      placeholder="Rechercher une ville"
+    >
 
-        <ul class="cities-grid" v-if="filteredCities.length">
-            <li v-for="city in filteredCities" :key="city.city">
-                <h3>{{ city.city }}</h3>
-                <p class="text">Température : <span class="temperature">{{ city.temperature }}°C</span></p>
-                <p class="text">Humidité : {{ city.humidity }}%</p>
-                <p class="text">Vitesse du vent : {{ city.wind_speed }} km/h</p>
-                <p class="text">Condition : {{ city.condition }}</p>
+    <ul
+      v-if="filteredCities.length"
+      class="cities-grid"
+    >
+      <li
+        v-for="city in filteredCities"
+        :key="city.city"
+      >
+        <h3>{{ city.city }}</h3>
+        <p class="text">
+          Température : <span class="temperature">{{ city.temperature }}°C</span>
+        </p>
+        <p class="text">
+          Humidité : {{ city.humidity }}%
+        </p>
+        <p class="text">
+          Vitesse du vent : {{ city.wind_speed }} km/h
+        </p>
+        <p class="text">
+          Condition : {{ city.condition }}
+        </p>
 
-                <h4>Prévisions :</h4>
-                <ul class="forecast-grid">
-                    <li v-for="forecast in city.forecast" :key="forecast.day" class="forecast-item">
-                        <p class="text center">{{ forecast.day }}</p>
-                        <p class="text">Température :</p><p> {{ forecast.temperature }}°C</p>
-                        <p class="text">Condition : {{forecast.condition }}</p>
-                    </li>
-                </ul>
-            </li>
+        <h4>Prévisions :</h4>
+        <ul class="forecast-grid">
+          <li
+            v-for="forecast in city.forecast"
+            :key="forecast.day"
+            class="forecast-item"
+          >
+            <p class="text center">
+              {{ forecast.day }}
+            </p>
+            <p class="text">
+              Température :
+            </p><p> {{ forecast.temperature }}°C</p>
+            <p class="text">
+              Condition : {{ forecast.condition }}
+            </p>
+          </li>
         </ul>
+      </li>
+    </ul>
 
-        <p v-else>Aucune ville trouvée</p>
-    </div>
+    <p v-else>
+      Aucune ville trouvée
+    </p>
+  </div>
 </template>
 
 <script>
@@ -37,16 +67,16 @@ export default {
             searchQuery: ''
         };
     },
-    mounted() {
-        const allDataCities = getAllDataMeteo();
-        this.cities = allDataCities.cities;
-    },
     computed: {
         filteredCities() {
             return this.cities.filter(city =>
                 city.city.toLowerCase().includes(this.searchQuery.toLowerCase())
             );
         }
+    },
+    mounted() {
+        const allDataCities = getAllDataMeteo();
+        this.cities = allDataCities.cities;
     }
 };
 </script>

@@ -5,7 +5,7 @@
     <!-- Div fixe -->
     <div class="fixed-div">
       <h3>Méteo</h3>
-      <Meteo></Meteo>
+      <Meteo />
     </div>
 
     <div class="card-container">
@@ -15,7 +15,10 @@
           <h3>Work Hours Distribution by Category</h3>
         </div>
         <div class="card-body">
-          <canvas class="bar" id="bar-chart"></canvas>
+          <canvas
+            id="bar-chart"
+            class="bar"
+          />
           <p>
             This bar chart displays the distribution of work hours among employees, managers, 
             and the general manager. It helps visualize how time is spent across different 
@@ -31,7 +34,10 @@
           <h3>Employee Performance Over Time</h3>
         </div>
         <div class="card-body">
-          <canvas class="line" id="line-chart"></canvas>
+          <canvas
+            id="line-chart"
+            class="line"
+          />
           <p>
             This line chart tracks the daily and weekly performance of employees over a selected 
             period. It helps managers and the general manager monitor trends in productivity, 
@@ -46,7 +52,10 @@
           <h3>Complaints and Work Conditions Breakdown</h3>
         </div>
         <div class="card-body">
-          <canvas class="pie" id="pie-chart"></canvas>
+          <canvas
+            id="pie-chart"
+            class="pie"
+          />
           <p>
             This pie chart shows the percentage of employee complaints regarding various aspects 
             of their work conditions, such as long shifts, the city's deplorable state, and other 
@@ -64,15 +73,15 @@ import { Chart, BarController, LineController, PieController, BarElement, LineEl
 import Meteo from './meteo.vue';
 
 export default {
+  components: {
+   Meteo 
+  },
   data() {
     return {
       barChartData: null,
       lineChartData: null,
       pieChartData: null,
     };
-  },
-  components: {
-   Meteo 
   },
   mounted() {
     Chart.register(

@@ -4,7 +4,11 @@
     <p class="description">
       Cliquez sur le bouton ci-dessous pour {{ clockIn ? 'terminer' : 'commencer' }} votre journée de travail.
     </p>
-    <button class="clock-btn" :class="{ 'active': clockIn }" @click="clockInOut">
+    <button
+      class="clock-btn"
+      :class="{ 'active': clockIn }"
+      @click="clockInOut"
+    >
       {{ clockIn ? 'Pointer Sortie' : 'Pointer Entrée' }}
     </button>
   </div>

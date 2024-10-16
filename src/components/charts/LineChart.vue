@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Line Chart</h3>
-    <canvas id="line-chart"></canvas>
+    <canvas id="line-chart" />
   </div>
 </template>
 

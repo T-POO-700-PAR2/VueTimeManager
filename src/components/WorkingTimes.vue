@@ -3,15 +3,21 @@
     <h2>Temps de travail pour l'utilisateur {{ userId }}</h2>
     <div v-if="workingTimes && workingTimes.length > 0">
       <ul class="working-times-list">
-        <li v-for="time in workingTimes" :key="time.id">
+        <li
+          v-for="time in workingTimes"
+          :key="time.id"
+        >
           {{ formatTime(time.start) }} - {{ formatTime(time.end) }}
         </li>
       </ul>
       <div class="chart-container">
-        <canvas id="line-chart"></canvas>
+        <canvas id="line-chart" />
       </div>
     </div>
-    <div v-else class="no-data">
+    <div
+      v-else
+      class="no-data"
+    >
       <p>Aucun temps de travail n'a été ajouter !</p>
     </div>
   </div>

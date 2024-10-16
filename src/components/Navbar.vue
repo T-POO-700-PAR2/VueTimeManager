@@ -1,16 +1,43 @@
 <!-- src/components/AppNavbar.vue -->
 <template>
-  <nav class="navbar" v-if="user">
+  <nav
+    v-if="user"
+    class="navbar"
+  >
     <div class="navbar-brand">
       <h1>GOTHtime </h1>
     </div>
     <ul class="navbar-menu">
-      <li><router-link to="/">Home</router-link></li>
-      <li><router-link to="/workingTimes/1">Working Times</router-link></li>
-      <li><router-link to="/teams">Teams</router-link></li>
-      <li><router-link to="/user">User Profile</router-link></li>
-      <li><router-link to="/clock/1">Clock</router-link></li>
-      <li><button @click="logout">Logout</button></li>
+      <li>
+        <router-link to="/">
+          Home
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/workingTimes/1">
+          Working Times
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/teams">
+          Teams
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/user">
+          User Profile
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/clock/1">
+          Clock
+        </router-link>
+      </li>
+      <li>
+        <button @click="logout">
+          Logout
+        </button>
+      </li>
     </ul>
   </nav>
 </template>
@@ -26,6 +53,11 @@ export default {
       user: auth.currentUser,
     };
   },
+  mounted() {
+    auth.onAuthStateChanged(user => {
+      this.user = user;
+    });
+  },
   methods: {
     async logout() {
       try {
@@ -35,11 +67,6 @@ export default {
         console.error("Error logging out", error);
       }
     }
-  },
-  mounted() {
-    auth.onAuthStateChanged(user => {
-      this.user = user;
-    });
   }
 };
 </script>

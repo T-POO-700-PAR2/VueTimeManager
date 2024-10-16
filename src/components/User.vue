@@ -1,18 +1,50 @@
 <template>
   <div class="user-management-container">
     <h2>Gestion des utilisateurs</h2>
-    <form class="create-user-form" @submit.prevent="createUser">
-      <input v-model="newUser.username" placeholder="Nom d'utilisateur" required />
-      <input v-model="newUser.email" placeholder="Email" type="email" required />
-      <input v-model="newUser.role" placeholder="Rôle" required />
-      <button class="create-btn" type="submit">Créer Utilisateur</button>
+    <form
+      class="create-user-form"
+      @submit.prevent="createUser"
+    >
+      <input
+        v-model="newUser.username"
+        placeholder="Nom d'utilisateur"
+        required
+      >
+      <input
+        v-model="newUser.email"
+        placeholder="Email"
+        type="email"
+        required
+      >
+      <input
+        v-model="newUser.role"
+        placeholder="Rôle"
+        required
+      >
+      <button
+        class="create-btn"
+        type="submit"
+      >
+        Créer Utilisateur
+      </button>
     </form>
-    <hr class="divider" />
-    <input v-model="searchQuery" class="search-input" placeholder="Rechercher un utilisateur..." />
-    <div v-if="filteredUsers.length > 0" class="user-list-container">
+    <hr class="divider">
+    <input
+      v-model="searchQuery"
+      class="search-input"
+      placeholder="Rechercher un utilisateur..."
+    >
+    <div
+      v-if="filteredUsers.length > 0"
+      class="user-list-container"
+    >
       <h3>Liste des utilisateurs :</h3>
       <ul class="user-list">
-        <li v-for="user in filteredUsers" :key="user.id" class="user-item">
+        <li
+          v-for="user in filteredUsers"
+          :key="user.id"
+          class="user-item"
+        >
           <span class="user-info">{{ user.username }}</span>
           <span class="user-info">{{ user.email }}</span>
           <span class="user-info">{{ user.role }}</span>
@@ -20,9 +52,11 @@
       </ul>
     </div>
     <div v-else>
-      <p class="no-user">Aucun utilisateur trouvé.</p>
+      <p class="no-user">
+        Aucun utilisateur trouvé.
+      </p>
     </div>
-    <hr class="divider" />
+    <hr class="divider">
   </div>
 </template>
 

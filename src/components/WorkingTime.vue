@@ -1,11 +1,23 @@
 <template>
   <div>
     <h2>Gestion des temps de travail</h2>
-    <input v-model="startTime" placeholder="Heure de début (YYYY-MM-DDTHH:MM:SSZ)" />
-    <input v-model="endTime" placeholder="Heure de fin (YYYY-MM-DDTHH:MM:SSZ)" />
-    <button @click="createWorkingTime">Ajouter un temps de travail</button>
-    <button @click="updateWorkingTime">Mettre à jour un temps de travail</button>
-    <button @click="deleteWorkingTime">Supprimer un temps de travail</button>
+    <input
+      v-model="startTime"
+      placeholder="Heure de début (YYYY-MM-DDTHH:MM:SSZ)"
+    >
+    <input
+      v-model="endTime"
+      placeholder="Heure de fin (YYYY-MM-DDTHH:MM:SSZ)"
+    >
+    <button @click="createWorkingTime">
+      Ajouter un temps de travail
+    </button>
+    <button @click="updateWorkingTime">
+      Mettre à jour un temps de travail
+    </button>
+    <button @click="deleteWorkingTime">
+      Supprimer un temps de travail
+    </button>
   </div>
 </template>
 
