@@ -1,6 +1,6 @@
 <template>
   <div class="work-time-container">
-    <h2>Gestion des horaires pour l'utilisateur {{ userId }}</h2>
+    <h2>Gestion des horaires pour {{ username }}</h2>
     <p class="description">
       Cliquez sur le bouton ci-dessous pour {{ clockIn ? 'terminer' : 'commencer' }} votre journée de travail.
     </p>
@@ -19,24 +19,49 @@ export default {
   data() {
     return {
       userId: 1,
+      username: '',
       clockIn: false,
     };
   },
+  mounted() {
+    this.fetchUserInfo();
+    this.checkClockStatus();
+  },
   methods: {
+    fetchUserInfo() {
+      this.$axios.get(`https://time-manager-par2-58868fe31538.herokuapp.com/api/users/${this.userId}`)
+        .then(response => {
+          this.username = response.data.data.username;
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération des informations utilisateur :', error);
+        });
+    },
+    checkClockStatus() {
+      // Vérifiez le statut actuel de l'horloge
+      this.$axios.get(`https://time-manager-par2-58868fe31538.herokuapp.com/api/clocks/${this.userId}`)
+        .then(response => {
+          this.clockIn = response.data.data.status;
+        })
+        .catch(error => {
+          console.error('Erreur lors de la vérification du statut de l\'horloge :', error);
+        });
+    },
     clockInOut() {
       const currentTime = new Date().toISOString();
       
       const payload = {
         clock: {
-          user_id: this.userId,
+          user: this.userId,
           status: !this.clockIn,
           time: currentTime
         }
       };
 
       this.$axios.post('https://time-manager-par2-58868fe31538.herokuapp.com/api/clocks', payload)
-        .then(() => {
-          this.clockIn = !this.clockIn;
+        .then(response => {
+          this.clockIn = response.data.data.status;
+          console.log('Pointage réussi:', response.data);
         })
         .catch(error => {
           console.error('Erreur lors du changement d\'état de l\'horloge :', error);

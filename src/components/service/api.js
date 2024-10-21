@@ -74,11 +74,23 @@ export const getAllDataMeteo = () => {
         { "day": "Tuesday", "temperature": 25, "condition": "Partly Cloudy" },
         { "day": "Wednesday", "temperature": 21, "condition": "Cloudy" }
       ]
+    },
+    {
+      "city": "Ouagadougou",
+      "temperature": 53,
+      "humidity": 19,
+      "wind_speed": 9,
+      "condition": "Partly Cloudy",
+      "forecast": [
+        { "day": "Monday", "temperature": 46, "condition": "Sunny" },
+        { "day": "Tuesday", "temperature": 60, "condition": "Partly Cloudy" },
+        { "day": "Wednesday", "temperature": 51, "condition": "Cloudy" }
+      ]
     }
   ]
 }
 }
 
 export const getNameContry = () => {
-    return ["Lyon", "Paris","Bordeaux","Marseille"]
+    return ["Lyon", "Paris","Bordeaux","Marseille", "Gotham", "Ouagadougou"]
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="working-times-container">
-    <h2>Temps de travail pour l'utilisateur {{ userId }}</h2>
+    <h2>Temps de travail pour l'utilisateur {{ username }}</h2>
     <div v-if="workingTimes && workingTimes.length > 0">
       <ul class="working-times-list">
         <li
@@ -18,7 +18,7 @@
       v-else
       class="no-data"
     >
-      <p>Aucun temps de travail n'a été ajouter !</p>
+      <p>Aucun temps de travail n'a été ajouté !</p>
     </div>
   </div>
 </template>
@@ -30,12 +30,14 @@ export default {
   data() {
     return {
       workingTimes: [],
-      userId: 1,
+      userId: 11,
+      username: '',
       lineChart: null
     };
   },
   mounted() {
     this.getWorkingTimes();
+    this.fetchUserInfo();
   },
   methods: {
     getWorkingTimes() {
@@ -48,6 +50,16 @@ export default {
         })
         .catch(error => {
           console.error('Erreur lors de la récupération des temps de travail:', error);
+        });
+    },
+
+    fetchUserInfo() {
+      this.$axios.get(`https://time-manager-par2-58868fe31538.herokuapp.com/api/users/${this.userId}`)
+        .then(response => {
+          this.username = response.data.data.username;
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération des informations utilisateur :', error);
         });
     },
 
