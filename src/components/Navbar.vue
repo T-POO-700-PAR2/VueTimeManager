@@ -34,6 +34,11 @@
         </router-link>
       </li>
       <li>
+        <router-link to="/profil">
+          Profil
+        </router-link>
+      </li>
+      <li>
         <button @click="logout">
           Logout
         </button>

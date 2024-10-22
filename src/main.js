@@ -12,6 +12,7 @@ import Login from './components/LoginPage.vue';
 import Signup from './components/SignupPage.vue';
 import { auth } from '../firebase';
 import MeteoVue from './components/MeteoVue.vue';
+import ProfilVue from './components/profilVue.vue';
 
 axios.defaults.baseURL = 'https://time-manager-par2-58868fe31538.herokuapp.com/api';
 
@@ -26,10 +27,12 @@ const routes = [
   { path: '/login', component: Login },
   { path: '/signup', component: Signup },
   { path: '/meteo', component: MeteoVue },
+  { path: '/profil', component: ProfilVue },
+
 
 ];
 
-const protectedRoutes = ['/workingTimes', '/clock', '/teams', '/user','/'];
+const protectedRoutes = ['/workingTimes', '/clock', '/teams', '/user','profil','/'];
 
 const router = createRouter({
   history: createWebHistory(),
