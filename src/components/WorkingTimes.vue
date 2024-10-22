@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import { Chart } from 'chart.js';
+import { Chart } from 'chart.js/auto';
 
 export default {
   data() {
     return {
       workingTimes: [],
-      userId: 11,
+      userId: 5,
       username: '',
       lineChart: null
     };
