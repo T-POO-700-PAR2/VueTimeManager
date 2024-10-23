@@ -1,295 +1,352 @@
+<!-- Remplacez uniquement votre template, en gardant tout le script intact -->
 <template>
   <div>
     <h1>Time Management and Work Conditions Overview</h1>
+
+    <!-- Nouvelles Quick Stats -->
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-content">
+          <h4>Total Employees</h4>
+          <div class="stat-value">248</div>
+          <div class="stat-change positive">+12% ↑</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">⏰</div>
+        <div class="stat-content">
+          <h4>Avg. Working Hours</h4>
+          <div class="stat-value">7.5h</div>
+          <div class="stat-change negative">-2% ↓</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">📊</div>
+        <div class="stat-content">
+          <h4>Productivity Rate</h4>
+          <div class="stat-value">92%</div>
+          <div class="stat-change positive">+5% ↑</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-content">
+          <h4>Goals Completed</h4>
+          <div class="stat-value">85%</div>
+          <div class="stat-change positive">+8% ↑</div>
+        </div>
+      </div>
+    </div>
     
-    <!-- Div fixe -->
+    <!-- Div fixe existante avec ajouts -->
     <div class="fixed-div">
       <h3>Méteo</h3>
       <Meteo />
+      
+      <!-- Nouvelle section notifications -->
+      <div class="notifications-section">
+        <h4>Recent Updates</h4>
+        <ul class="notifications-list">
+          <li>
+            <span class="notification-dot"></span>
+            New schedule published
+          </li>
+          <li>
+            <span class="notification-dot"></span>
+            Team meeting at 2 PM
+          </li>
+          <li>
+            <span class="notification-dot"></span>
+            3 new time-off requests
+          </li>
+        </ul>
+      </div>
     </div>
 
+    <!-- Vos graphiques existants -->
     <div class="card-container">
-      <!-- Bar Chart Card -->
+      <!-- Vos cards existantes -->
       <div class="card">
         <div class="card-header">
           <h3>Work Hours Distribution by Category</h3>
         </div>
         <div class="card-body">
-          <canvas
-            id="bar-chart"
-            class="bar"
-          />
+          <canvas id="bar-chart" class="bar" />
           <p>
             This bar chart displays the distribution of work hours among employees, managers, 
-            and the general manager. It helps visualize how time is spent across different 
-            categories, shedding light on the workload disparity and areas of concern, such as 
-            excessive working hours.
+            and the general manager.
           </p>
         </div>
       </div>
       
-      <!-- Line Chart Card -->
       <div class="card">
         <div class="card-header">
           <h3>Employee Performance Over Time</h3>
         </div>
         <div class="card-body">
-          <canvas
-            id="line-chart"
-            class="line"
-          />
+          <canvas id="line-chart" class="line" />
           <p>
             This line chart tracks the daily and weekly performance of employees over a selected 
-            period. It helps managers and the general manager monitor trends in productivity, 
-            spot unusual patterns, and ensure employees are not overworked due to extended shifts.
+            period.
           </p>
         </div>
       </div>
       
-      <!-- Pie Chart Card -->
       <div class="card">
         <div class="card-header">
           <h3>Complaints and Work Conditions Breakdown</h3>
         </div>
         <div class="card-body">
-          <canvas
-            id="pie-chart"
-            class="pie"
-          />
+          <canvas id="pie-chart" class="pie" />
           <p>
-            This pie chart shows the percentage of employee complaints regarding various aspects 
-            of their work conditions, such as long shifts, the city's deplorable state, and other 
-            concerns like Batman’s lack of scruples. It helps the town hall understand the most 
-            pressing issues and take corrective measures to improve working conditions.
+            Work conditions employee complaints.
           </p>
+        </div>
+      </div>
+
+      <!-- Nouvelles cards supplémentaires -->
+      <div class="card schedule-card">
+        <div class="card-header">
+          <h3>Today's Schedule</h3>
+        </div>
+        <div class="card-body">
+          <div class="schedule-list">
+            <div class="schedule-item">
+              <span class="time">09:00</span>
+              <span class="event">Team Standup</span>
+              <span class="status pending">Pending</span>
+            </div>
+            <div class="schedule-item">
+              <span class="time">11:00</span>
+              <span class="event">Project Review</span>
+              <span class="status confirmed">Confirmed</span>
+            </div>
+            <div class="schedule-item">
+              <span class="time">14:00</span>
+              <span class="event">Client Meeting</span>
+              <span class="status confirmed">Confirmed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card kpi-card">
+        <div class="card-header">
+          <h3>Key Metrics</h3>
+        </div>
+        <div class="card-body">
+          <div class="kpi-grid">
+            <div class="kpi-item">
+              <div class="kpi-label">Overtime Hours</div>
+              <div class="kpi-value">124h</div>
+              <div class="kpi-change negative">+12%</div>
+            </div>
+            <div class="kpi-item">
+              <div class="kpi-label">Time Off</div>
+              <div class="kpi-value">85h</div>
+              <div class="kpi-change positive">-5%</div>
+            </div>
+            <div class="kpi-item">
+              <div class="kpi-label">Late Arrivals</div>
+              <div class="kpi-value">8%</div>
+              <div class="kpi-change positive">-2%</div>
+            </div>
+            <div class="kpi-item">
+              <div class="kpi-label">Early Leaves</div>
+              <div class="kpi-value">5%</div>
+              <div class="kpi-change neutral">0%</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import { Chart, BarController, LineController, PieController, BarElement, LineElement, ArcElement, PointElement, CategoryScale, LinearScale, Title } from 'chart.js';
-import Meteo from './meteo.vue';
-
-export default {
-  components: {
-   Meteo 
-  },
-  data() {
-    return {
-      barChartData: null,
-      lineChartData: null,
-      pieChartData: null,
-    };
-  },
-  mounted() {
-    Chart.register(
-      BarController,
-      LineController,
-      PieController,
-      BarElement,
-      LineElement,
-      PointElement,
-      ArcElement,
-      CategoryScale,
-      LinearScale,
-      Title
-    );
-
-    this.loadChartData();
-  },
-  methods: {
-    loadChartData() {
-      this.$axios.get(`/working_times?user_id=1`)
-        .then(response => {
-          const data = response.data;
-
-          if (data) {
-            this.barChartData = this.formatBarChartData(data);
-            this.lineChartData = this.formatLineChartData(data);
-            this.pieChartData = this.formatPieChartData(data);
-            this.renderCharts();
-          } else {
-            console.error('Pas de données trouvées pour les graphiques.');
-          }
-        })
-        .catch(error => {
-          console.error('Erreur lors du chargement des données du graphique :', error);
-        });
-    },
-    renderCharts() {
-      const ctxBar = document.getElementById('bar-chart').getContext('2d');
-      new Chart(ctxBar, {
-        type: 'bar',
-        data: this.barChartData,
-      });
-
-      const ctxLine = document.getElementById('line-chart').getContext('2d');
-      new Chart(ctxLine, {
-        type: 'line',
-        data: this.lineChartData,
-      });
-
-      const ctxPie = document.getElementById('pie-chart').getContext('2d');
-      new Chart(ctxPie, {
-        type: 'pie',
-        data: this.pieChartData,
-      });
-    },
-    formatBarChartData(data) {
-      return {
-        labels: data.data.map(item => new Date(item.start).toLocaleDateString()),
-        datasets: [{
-          label: 'Heures de travail',
-          backgroundColor: '#42A5F5',
-          data: data.data.map(item => new Date(item.end) - new Date(item.start)),
-        }],
-      };
-    },
-    formatLineChartData(data) {
-      return {
-        labels: data.data.map(item => new Date(item.start).toLocaleDateString()),
-        datasets: [{
-          label: 'Heures de travail',
-          borderColor: '#66BB6A',
-          pointBackgroundColor: '#FF6384',
-          data: data.data.map(item => new Date(item.end) - new Date(item.start)),
-        }],
-      };
-    },
-    formatPieChartData(data) {
-      return {
-        labels: data.data.map(item => new Date(item.start).toLocaleDateString()),
-        datasets: [{
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-          data: data.data.map(item => new Date(item.end) - new Date(item.start)),
-        }],
-      };
-    },
-  },
-};
-</script>
+<!-- Ajoutez ces styles à votre section style existante -->
 <style scoped>
-h1{
-  margin-top: 2%;
+/* Vos styles existants restent inchangés */
+
+/* Nouveaux styles pour les stats rapides */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 0 auto 2rem;
+  padding: 0 20px;
+  max-width: 1600px;
 }
-  /* Style global pour la page */
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f4f4f9;
+
+.stat-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  background: #f8fafc;
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+.stat-content h4 {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0.25rem 0;
+}
+
+.stat-change {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.stat-change.positive {
+  color: #10b981;
+}
+
+.stat-change.negative {
+  color: #ef4444;
+}
+
+/* Styles pour les notifications */
+.notifications-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.notifications-section h4 {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0 0 0.75rem 0;
+}
+
+.notifications-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notifications-list li {
+  font-size: 0.875rem;
+  color: #0f172a;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.notification-dot {
+  width: 8px;
+  height: 8px;
+  background: #3b82f6;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+}
+
+/* Styles pour le schedule */
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.schedule-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background: #f8fafc;
+  border-radius: 6px;
+}
+
+.time {
+  font-weight: 500;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.event {
+  color: #0f172a;
+  font-size: 0.875rem;
+}
+
+.status {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.confirmed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Styles pour les KPIs */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.kpi-item {
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 6px;
+}
+
+.kpi-label {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.kpi-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0.25rem 0;
+}
+
+.kpi-change {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Media queries supplémentaires */
+@media (max-width: 768px) {
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 10px;
   }
 
-  h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 30px;
-    font-size: 1.8em;
+  .kpi-grid {
+    grid-template-columns: 1fr;
   }
 
-  /* Style pour la div fixe */
-  .fixed-div {
-    position: fixed;
-    top: 226px; /* Ajuste cette valeur selon la hauteur souhaitée */
-    right: 20px; /* Place à droite avec un peu de marge */
-    width: 200px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    z-index: 1000; /* Pour s'assurer qu'elle reste visible au-dessus du reste */
+  .schedule-item {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
   }
-
-  .fixed-div h3 {
-    font-size: 1.2em;
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
-
-  .fixed-div ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-
-  .fixed-div ul li {
-    margin-bottom: 8px;
-  }
-
-  .fixed-div ul li a {
-    text-decoration: none;
-    color: #2c3e50;
-    font-size: 0.9em;
-  }
-
-  .fixed-div ul li a:hover {
-    text-decoration: underline;
-  }
-
-  /* Style pour les cards */
-  .card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-    padding: 15px;
-    transition: transform 0.3s;
-    max-width: 385px;
-    margin: 0 auto 20px auto; /* centrage et espace entre les cards */
-  }
-
-  .card:hover {
-    transform: translateY(-3px);
-  }
-
-  .card-header h3 {
-    margin: 0;
-    color: #2c3e50;
-    font-size: 1.3em;
-  }
-
-  .card-body {
-    margin-top: 15px;
-  }
-
-  .card p {
-    color: #666;
-    font-size: 0.85em;
-    line-height: 1.4;
-  }
-
-  /* Style des graphiques */
-  canvas {
-    width: 100% !important;
-    max-width: 100%;
-    height: auto !important;
-    margin-bottom: 10px;
-  }
-
-  /* Style pour le conteneur des cards */
-  .card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 15px;
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .fixed-div {
-      top: auto;
-      bottom: 20px;
-      right: 10px;
-      width: 160px; /* Réduire un peu la largeur sur mobile */
-    }
-
-    .card {
-      padding: 10px;
-    }
-
-    .card-header h3 {
-      font-size: 1.1em;
-    }
-  }
-</style>
+}
+</style>  

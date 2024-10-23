@@ -74,6 +74,7 @@ export default {
 
 <style scoped>
 .meteo-container {
+    display: none;
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;

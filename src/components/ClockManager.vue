@@ -18,7 +18,7 @@
 export default {
   data() {
     return {
-      userId: 1,
+      userId: 5,
       username: '',
       clockIn: false,
     };
@@ -71,53 +71,58 @@ export default {
 };
 </script>
 
+
+  
+
 <style scoped>
-.work-time-container {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: #f4f4f9;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
 
-h2 {
-  color: #333;
-  margin-bottom: 20px;
-  font-size: 24px;
-}
+  .work-time-container {
+    width: 1080vw;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
 
-.description {
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 20px;
-}
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
 
-.clock-btn {
-  padding: 15px 30px;
-  font-size: 18px;
-  color: white;
-  background-color: #36a2eb;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s ease-in-out;
-}
+  .description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+  }
 
-.clock-btn:hover {
-  background-color: #258cd1;
-}
+  .clock-btn {
+    padding: 15px 30px;
+    font-size: 18px;
+    color: white;
+    background-color: #36a2eb;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+  }
 
-.clock-btn:active {
-  transform: scale(0.98); 
-}
+  .clock-btn:hover {
+    background-color: #258cd1;
+  }
 
-.clock-btn.active {
-  background-color: #eb4034; 
-}
+  .clock-btn:active {
+    transform: scale(0.98); 
+  }
 
-.clock-btn.active:hover {
-  background-color: #d13428;
-}
+  .clock-btn.active {
+    background-color: #eb4034; 
+  }
+
+  .clock-btn.active:hover {
+    background-color: #d13428;
+  }
+
 </style>

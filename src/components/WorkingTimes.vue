@@ -177,7 +177,7 @@ export default {
 
 <style scoped>
 .working-times-container {
-  max-width: 900px;
+  width: 1080px;
   margin: 20px auto;
   padding: 20px;
   background-color: #f7f7f7;
