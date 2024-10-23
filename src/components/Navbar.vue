@@ -34,6 +34,11 @@
         </router-link>
       </li>
       <li>
+        <router-link to="/profil">
+          Profil
+        </router-link>
+      </li>
+      <li>
         <button @click="logout">
           Logout
         </button>
@@ -62,6 +67,7 @@ export default {
     async logout() {
       try {
         await signOut(auth);
+        sessionStorage.clear();
         this.$router.push('/login');
       } catch (error) {
         console.error("Error logging out", error);

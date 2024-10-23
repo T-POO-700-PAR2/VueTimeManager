@@ -38,19 +38,25 @@
 <script>
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-export default {
+  export default {
   data() {
     return {
       email: "",
       password: "",
+      user: null, // Pour stocker les informations de l'utilisateur connecté
     };
   },
   methods: {
     async login() {
       const auth = getAuth();
       try {
-        await signInWithEmailAndPassword(auth, this.email, this.password);
-        this.$router.push("/");
+        const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password);
+        this.user = userCredential.user;
+        sessionStorage.setItem("userId", this.user.uid);
+        sessionStorage.setItem("email", this.user.email);
+        console.log('UserId:', this.user.uid);
+        console.log('Useremail:', this.user.email);
+        this.$router.push("/");  
       } catch (error) {
         console.error("Login failed:", error);
       }
