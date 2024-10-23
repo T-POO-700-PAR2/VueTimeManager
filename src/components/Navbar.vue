@@ -1,11 +1,10 @@
-<!-- src/components/AppNavbar.vue -->
 <template>
   <nav
     v-if="user"
     class="navbar"
   >
     <div class="navbar-brand">
-      <h1>GOTHtime </h1>
+      <img src="@/assets/logo.png" alt="GOTHtime Logo" class="logo" />
     </div>
     <ul class="navbar-menu">
       <li>
@@ -78,17 +77,21 @@ export default {
 </script>
 
 <style scoped>
+
+.logo {
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2c3e50;
-  /* Darker color for the navbar */
+  background-color: #fcfcfc;
   padding: 1rem 2rem;
-  /* Add more padding for better spacing */
-  color: white;
+  color: rgb(0, 0, 0);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  /* Subtle shadow effect */
 }
 
 .navbar-brand {
@@ -110,7 +113,7 @@ export default {
 }
 
 .navbar a {
-  color: white;
+  color: rgb(0, 0, 0);
   text-decoration: none;
   transition: color 0.3s ease;
   /* Smooth transition on hover */
