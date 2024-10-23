@@ -52,7 +52,7 @@ import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
 
 export default {
-  name: "AppNavbar", // Changement ici
+  name: "AppNavbar",
   data() {
     return {
       user: auth.currentUser,
@@ -97,16 +97,13 @@ export default {
 
 .navbar-brand {
   font-size: 1.5rem;
-  /* Bigger font size for the brand name */
-  font-weight: bold;
-  /* Bold for emphasis */
 }
 
 .navbar-menu {
   list-style: none;
   display: flex;
+  align-items: center;
   gap: 1.5rem;
-  /* Increased gap between items */
 }
 
 .navbar li {
@@ -117,31 +114,29 @@ export default {
   color: rgb(0, 0, 0);
   text-decoration: none;
   transition: color 0.3s ease;
-  /* Smooth transition on hover */
 }
 
 .navbar a:hover {
   color: #1abc9c;
-  /* Change color on hover */
   text-decoration: underline;
 }
 
 .navbar button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: #e74c3c;
-  /* Distinct color for the logout button */
   border: none;
   color: white;
   padding: 0.5rem 1rem;
-  /* Added padding for better button size */
   border-radius: 5px;
-  /* Rounded corners */
   cursor: pointer;
+  height: 100%;
   transition: background-color 0.3s ease;
-  /* Smooth transition for hover */
 }
 
 .navbar button:hover {
   background: #c0392b;
-  /* Darker red on hover */
 }
+
 </style>
