@@ -1,15 +1,12 @@
 <template>
    <div>
     <h1>Profil</h1>
-    <div>
-
-    </div>
    </div>
-  </template>
+</template>
   
   <script>
-import { getAuth } from 'firebase/auth';
-
+//import  getAuth } from 'firebase/auth';{
+import axios from 'axios';
   
   export default {
       name: 'ProfilComponent',
@@ -23,14 +20,17 @@ import { getAuth } from 'firebase/auth';
         this.getUserProfile();
       },
       methods:{
-        async getUserProfile(){
-            const auth = getAuth();
-            this.user = auth.currentUser;
-            if (this.user){
-                console.log('User ID:', this.user.email);
-            }else{
-                console.log('ERROR 404');
-            }
+          async getUserProfile() {
+              let user = sessionStorage.getItem("userId");
+          console.log('ma var :' + user)
+            
+        axios.get(`https://time-manager-par2-58868fe31538.herokuapp.com/api/users/78`)
+        .then(response => {
+            this.users = response.data.data;
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération de la liste des utilisateurs :', error);
+        });
         },
       }
   

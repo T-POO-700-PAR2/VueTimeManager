@@ -67,6 +67,7 @@ export default {
     async logout() {
       try {
         await signOut(auth);
+        sessionStorage.clear();
         this.$router.push('/login');
       } catch (error) {
         console.error("Error logging out", error);

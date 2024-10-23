@@ -4,6 +4,14 @@
       <h2>Sign Up</h2>
       <form @submit.prevent="signup">
         <div class="form-group">
+          <label for="username">Nom d'utilisateur</label>
+          <input
+            v-model="username"
+            type="input"
+            required
+          >
+        </div>
+        <div class="form-group">
           <label for="email">Email</label>
           <input
             v-model="email"
@@ -37,11 +45,13 @@
 
 <script>
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import axios from "axios";
 
 export default {
   data() {
     return {
       email: "",
+      username:"",
       password: "",
     };
   },
@@ -50,11 +60,35 @@ export default {
       const auth = getAuth();
       try {
         await createUserWithEmailAndPassword(auth, this.email, this.password);
+        this.addUser(this.email,this.username)
         this.$router.push("/");
       } catch (error) {
         console.error("Signup failed:", error);
       }
     },
+    addUser(email,username) {
+      // Envoie une requête POST à l'API pour créer un nouvel utilisateur
+      axios.post('https://time-manager-par2-58868fe31538.herokuapp.com/api/users', {
+        user: {
+          username: username,// tu peux mettre ici ce que entre l'user ? 
+          role : 'employee',  // Remplace 'Change' par le prénom ou nom correct si nécessaire
+          email: email
+        }
+      }, {
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+      .then((response) => {
+        // Gestion du succès
+        console.log("Utilisateur ajouté avec succès:", response.data);
+      })
+      .catch((error) => {
+        // Gestion des erreurs
+        console.error("Erreur lors de l'ajout de l'utilisateur:", error);
+        alert("Erreur lors de l'ajout de l'utilisateur. Veuillez réessayer.");
+      });
+    }
   },
 };
 </script>

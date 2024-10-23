@@ -52,8 +52,8 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
       try {
         const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password);
         this.user = userCredential.user;
-        localStorage.setItem("userId", this.user.uid);
-        localStorage.setItem("email", this.user.email)
+        sessionStorage.setItem("userId", this.user.uid);
+        sessionStorage.setItem("email", this.user.email);
         console.log('UserId:', this.user.uid);
         console.log('Useremail:', this.user.email);
         this.$router.push("/");  
