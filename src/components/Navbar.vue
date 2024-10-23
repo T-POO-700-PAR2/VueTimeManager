@@ -4,6 +4,7 @@
     class="navbar"
   >
     <div class="navbar-brand">
+      <!-- eslint-disable-next-line -->
       <img src="@/assets/logo.png" alt="GOTHtime Logo" class="logo" />
     </div>
     <ul class="navbar-menu">

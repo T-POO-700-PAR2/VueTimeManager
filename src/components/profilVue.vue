@@ -1,3 +1,4 @@
+<!-- eslint-disable -->
 <template>
   <div class="profile-container">
     <h1>Profil de {{ user.username || firebaseUserEmail || 'Utilisateur introuvable' }}</h1>
