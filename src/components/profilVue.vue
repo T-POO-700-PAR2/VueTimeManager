@@ -1,22 +1,22 @@
 <template>
   <div class="profile-container">
-    <h1>Profil de {{ user.username || 'Utilisateur introuvable' }}</h1>
-    
-    <div v-if="user.email">
-      <div class="profile-item">
-        <p>Username :</p>
+    <h1>Profil de {{ user.username || firebaseUserEmail || 'Utilisateur introuvable' }}</h1>
+
+    <div v-if="user.email || firebaseUserEmail">
+      <div class="profile-item" v-if="user.username">
+        <p>Username</p>
         <span>{{ user.username }}</span>
       </div>
       <div class="profile-item">
-        <p>Email :</p>
-        <span>{{ user.email }}</span>
+        <p>Email</p>
+        <span>{{ user.email || firebaseUserEmail }}</span>
       </div>
-      <div class="profile-item">
-        <p>Role :</p>
+      <div class="profile-item" v-if="user.role">
+        <p>Role</p>
         <span>{{ user.role }}</span>
       </div>
     </div>
-    
+
     <div v-else>
       <p>Aucun utilisateur trouvé avec cet email.</p>
     </div>
@@ -25,39 +25,52 @@
 
 <script>
 import axios from 'axios';
+import { auth } from './firebase';
 
 export default {
   name: 'ProfilComponent',
 
   data() {
     return {
-      user: {}, 
+      user: {},
       users: [],
+      firebaseUserEmail: null,
     };
   },
 
   mounted() {
-    this.getAllUsers();
+    this.getFirebaseUser();
   },
 
   methods: {
+    getFirebaseUser() {
+      const user = auth.currentUser;
+      if (user) {
+        this.firebaseUserEmail = user.email;
+        this.getAllUsers();
+      } else {
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            this.firebaseUserEmail = user.email;
+            this.getAllUsers();
+          }
+        });
+      }
+    },
+
     getUserProfile(data) {
-          let userEmail = sessionStorage.getItem("email");
-      console.log('Email utilisateur session : ' + userEmail);
-      
-      const foundUser = data.find(u => u.email === userEmail);
+      const foundUser = data.find(u => u.email === this.firebaseUserEmail);
       if (foundUser) {
-        console.log('Utilisateur trouvé : ', foundUser);
         this.user = foundUser;
       } else {
-        console.log('Utilisateur pas trouvé !');
+        console.log('Utilisateur non trouvé dans l\'API, mais email trouvé via Firebase');
       }
     },
 
     getAllUsers() {
       axios.get('https://time-manager-par2-58868fe31538.herokuapp.com/api/users')
         .then(response => {
-          this.users = response.data.data; 
+          this.users = response.data.data;
           this.getUserProfile(this.users);
         })
         .catch(error => {
@@ -70,7 +83,7 @@ export default {
 
 <style scoped>
 .profile-container {
-    margin-top: 2%;
+  margin-top: 2%;
   max-width: 600px;
   padding: 20px;
   border: 1px solid #ddd;
