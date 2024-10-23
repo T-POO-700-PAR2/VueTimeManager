@@ -1,100 +1,108 @@
 <template>
-   <div>
-    <h1>Profil</h1>
-   </div>
-</template>
-  
-  <script>
-//import  getAuth } from 'firebase/auth';{
-import axios from 'axios';
-  
-  export default {
-      name: 'ProfilComponent',
+  <div class="profile-container">
+    <h1>Profil de {{ user.username || 'Utilisateur introuvable' }}</h1>
     
-      data() {
-        return {
-            user: null,
-        };
-      },
-      mounted() {
-        this.getUserProfile();
-      },
-      methods:{
-          async getUserProfile() {
-              let user = sessionStorage.getItem("userId");
-          console.log('ma var :' + user)
-            
-        axios.get(`https://time-manager-par2-58868fe31538.herokuapp.com/api/users/78`)
+    <div v-if="user.email">
+      <div class="profile-item">
+        <p>Username :</p>
+        <span>{{ user.username }}</span>
+      </div>
+      <div class="profile-item">
+        <p>Email :</p>
+        <span>{{ user.email }}</span>
+      </div>
+      <div class="profile-item">
+        <p>Role :</p>
+        <span>{{ user.role }}</span>
+      </div>
+    </div>
+    
+    <div v-else>
+      <p>Aucun utilisateur trouvé avec cet email.</p>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  name: 'ProfilComponent',
+
+  data() {
+    return {
+      user: {}, 
+      users: [],
+    };
+  },
+
+  mounted() {
+    this.getAllUsers();
+  },
+
+  methods: {
+    getUserProfile(data) {
+          let userEmail = sessionStorage.getItem("email");
+      console.log('Email utilisateur session : ' + userEmail);
+      
+      const foundUser = data.find(u => u.email === userEmail);
+      if (foundUser) {
+        console.log('Utilisateur trouvé : ', foundUser);
+        this.user = foundUser;
+      } else {
+        console.log('Utilisateur pas trouvé !');
+      }
+    },
+
+    getAllUsers() {
+      axios.get('https://time-manager-par2-58868fe31538.herokuapp.com/api/users')
         .then(response => {
-            this.users = response.data.data;
+          this.users = response.data.data; 
+          this.getUserProfile(this.users);
         })
         .catch(error => {
           console.error('Erreur lors de la récupération de la liste des utilisateurs :', error);
         });
-        },
-      }
-  
-      
-  };
-  </script>
-  
-  <style scoped>
-  .meteo-container {
-      max-width: 500px;
-      margin: 0 auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      background-color: #f9f9f9;
-      text-align: center;
+    }
   }
-  
-  h1 {
-      margin-bottom: 20px;
-      font-size: 2rem;
-  }
-  
-  .city-info {
-      margin-bottom: 20px;
-  }
-  
-  .city-info h2 {
-      font-size: 1.8rem;
-      margin-bottom: 30px;
-  }
-  
-  .temperature {
-      font-size: 2.5rem;
-      color: #ff5722;
-  }
-  
-  .condition {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-  }
-  
-  .details {
-      font-size: 1rem;
-      color: #777;
-  }
-  
-  .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-  }
-  
-  button {
-      background-color: #5cb85c;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-  }
-  
-  button:hover {
-      background-color: #4cae4c;
-  }
-  </style>
+};
+</script>
+
+<style scoped>
+.profile-container {
+    margin-top: 2%;
+  max-width: 600px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #333;
+}
+
+.profile-item {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.profile-item p {
+  display: inline-block;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.profile-item span {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #777;
+}
+</style>
