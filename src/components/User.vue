@@ -16,11 +16,29 @@
         type="email"
         required
       >
-      <input
-        v-model="newUser.role"
-        placeholder="Rôle"
+      
+      <!-- Sélecteur pour le rôle -->
+      <select 
+        v-model="newUser.role" 
         required
       >
+        <option 
+          disabled 
+          value=""
+        >
+          Sélectionner un rôle
+        </option>
+        <option value="Employé">
+          Employé
+        </option>
+        <option value="Manager">
+          Manager
+        </option>
+        <option value="general_manager">
+          General Manager
+        </option>
+      </select>
+
       <button
         class="create-btn"
         type="submit"
@@ -34,27 +52,48 @@
       class="search-input"
       placeholder="Rechercher un utilisateur..."
     >
-    <div
-      v-if="filteredUsers.length > 0"
+    
+    <div 
+      v-if="filteredUsers.length > 0" 
       class="user-list-container"
     >
       <h3>Liste des utilisateurs :</h3>
       <ul class="user-list">
+        <!-- Afficher uniquement les utilisateurs de la page actuelle -->
         <li
-          v-for="user in filteredUsers"
+          v-for="user in paginatedUsers"
           :key="user.id"
           class="user-item"
+          @click="redirectToEditUser(user.id)"
         >
           <span class="user-info">{{ user.username }}</span>
           <span class="user-info">{{ user.email }}</span>
           <span class="user-info">{{ user.role }}</span>
         </li>
       </ul>
+
+      <!-- Pagination: boutons Suivant et Précédent -->
+      <div class="pagination">
+        <button 
+          class="pagination-btn"
+          :disabled="currentPage === 1"
+          @click="prevPage"
+        >
+          Précédent
+        </button>
+        <button 
+          class="pagination-btn"
+          :disabled="currentPage >= totalPages"
+          @click="nextPage"
+        >
+          Suivant
+        </button>
+      </div>
     </div>
+    
     <div v-else>
-      <p class="no-user">
-        Aucun utilisateur trouvé.
-      </p>
+      <!-- eslint-disable-next-line--> 
+      <p class="no-user">Aucun utilisateur trouvé.</p>
     </div>
     <hr class="divider">
   </div>
@@ -67,23 +106,37 @@ export default {
   name: 'UserManagement',
   data() {
     return {
-      userId: 1,
       users: [],
       searchQuery: '',
       newUser: {
         username: '',
         email: '',
         role: ''
-      }
+      },
+      currentPage: 1, // Page courante
+      itemsPerPage: 7 // Limite d'utilisateurs par page
     };
   },
   computed: {
+    // Filtrer les utilisateurs selon la recherche
     filteredUsers() {
       return this.users.filter(user =>
         user.username.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
         user.email.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
         user.role.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
+    },
+
+    // Diviser les utilisateurs par page
+    paginatedUsers() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.filteredUsers.slice(start, end);
+    },
+
+    // Calculer le nombre total de pages
+    totalPages() {
+      return Math.ceil(this.filteredUsers.length / this.itemsPerPage);
     }
   },
   mounted() {
@@ -101,15 +154,53 @@ export default {
           console.error('Erreur lors de la création de l\'utilisateur :', error);
         });
     },
+     verifyIdentity(users) {
+  const foundUser = users.find(u => u.email === sessionStorage.getItem('email'));
+  
+  if (foundUser) {
+    if (foundUser.role !== "general_manager") {
+      // Vérifier que la route 'forbidden' existe dans votre fichier de routes
+      this.$router.push({ name: 'forbidden' }).catch(err => {
+        console.error('Erreur lors de la redirection vers la page d\'interdiction :', err);
+      });
+    } else {
+      console.log("L'utilisateur est un general_manager, accès autorisé.");
+    }
+  } else {
+    console.log('Utilisateur non trouvé dans l\'API, mais email trouvé via Firebase');
+  }
+},
     
     getAllUsers() {
       axios.get('https://time-manager-par2-58868fe31538.herokuapp.com/api/users')
         .then(response => {
           this.users = response.data.data;
+          this.verifyIdentity(this.users);
         })
         .catch(error => {
           console.error('Erreur lors de la récupération de la liste des utilisateurs :', error);
         });
+    },
+
+   
+
+    // Redirection vers la page de modification de l'utilisateur
+    redirectToEditUser(userId) {
+      this.$router.push({ name: 'EditUser', params: { id: userId } });
+    },
+
+    // Passer à la page suivante
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    },
+
+    // Revenir à la page précédente
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
     }
   }
 };
@@ -141,13 +232,15 @@ h2 {
   gap: 10px;
 }
 
-.create-user-form input {
+.create-user-form input,
+.create-user-form select {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
+/* Bouton de création */
 .create-btn {
   padding: 10px 15px;
   background-color: #36A2EB;
@@ -192,6 +285,7 @@ h2 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   font-size: 16px;
   color: #4a4a4a;
+  cursor: pointer;
 }
 
 .user-info {
@@ -217,5 +311,31 @@ h2 {
   border: none;
   height: 1px;
   background-color: #ccc;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.pagination-btn {
+  padding: 10px 15px;
+  background-color: #36A2EB;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination-btn:hover {
+  background-color: #258cd1;
+}
+
+.pagination-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 </style>
