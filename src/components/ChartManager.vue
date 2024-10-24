@@ -1,352 +1,350 @@
-<!-- Remplacez uniquement votre template, en gardant tout le script intact -->
 <template>
   <div>
     <h1>Time Management and Work Conditions Overview</h1>
 
-    <!-- Nouvelles Quick Stats -->
-    <div class="stats-container">
-      <div class="stat-card">
-        <div class="stat-icon">👥</div>
-        <div class="stat-content">
-          <h4>Total Employees</h4>
-          <div class="stat-value">248</div>
-          <div class="stat-change positive">+12% ↑</div>
-        </div>
-      </div>
-      
-      <div class="stat-card">
-        <div class="stat-icon">⏰</div>
-        <div class="stat-content">
-          <h4>Avg. Working Hours</h4>
-          <div class="stat-value">7.5h</div>
-          <div class="stat-change negative">-2% ↓</div>
-        </div>
-      </div>
-      
-      <div class="stat-card">
-        <div class="stat-icon">📊</div>
-        <div class="stat-content">
-          <h4>Productivity Rate</h4>
-          <div class="stat-value">92%</div>
-          <div class="stat-change positive">+5% ↑</div>
-        </div>
-      </div>
-      
-      <div class="stat-card">
-        <div class="stat-icon">🎯</div>
-        <div class="stat-content">
-          <h4>Goals Completed</h4>
-          <div class="stat-value">85%</div>
-          <div class="stat-change positive">+8% ↑</div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Div fixe existante avec ajouts -->
+    <!-- Div fixe -->
     <div class="fixed-div">
       <h3>Méteo</h3>
       <Meteo />
-      
-      <!-- Nouvelle section notifications -->
-      <div class="notifications-section">
-        <h4>Recent Updates</h4>
-        <ul class="notifications-list">
-          <li>
-            <span class="notification-dot"></span>
-            New schedule published
-          </li>
-          <li>
-            <span class="notification-dot"></span>
-            Team meeting at 2 PM
-          </li>
-          <li>
-            <span class="notification-dot"></span>
-            3 new time-off requests
-          </li>
-        </ul>
-      </div>
     </div>
 
-    <!-- Vos graphiques existants -->
     <div class="card-container">
-      <!-- Vos cards existantes -->
+      <!-- Bar Chart Card -->
       <div class="card">
         <div class="card-header">
           <h3>Work Hours Distribution by Category</h3>
         </div>
         <div class="card-body">
-          <canvas id="bar-chart" class="bar" />
+          <canvas
+            id="bar-chart"
+            class="bar"
+          />
           <p>
-            This bar chart displays the distribution of work hours among employees, managers, 
-            and the general manager.
+            This bar chart displays the distribution of work hours among employees, managers,
+            and the general manager. It helps visualize how time is spent across different
+            categories, shedding light on the workload disparity and areas of concern, such as
+            excessive working hours.
           </p>
         </div>
       </div>
-      
+
+      <!-- Line Chart Card -->
       <div class="card">
         <div class="card-header">
           <h3>Employee Performance Over Time</h3>
         </div>
         <div class="card-body">
-          <canvas id="line-chart" class="line" />
+          <canvas
+            id="line-chart"
+            class="line"
+          />
           <p>
-            This line chart tracks the daily and weekly performance of employees over a selected 
-            period.
+            This line chart tracks the daily and weekly performance of employees over a selected
+            period. It helps managers and the general manager monitor trends in productivity,
+            spot unusual patterns, and ensure employees are not overworked due to extended shifts.
           </p>
         </div>
       </div>
-      
+
+      <!-- Pie Chart Card -->
       <div class="card">
         <div class="card-header">
           <h3>Complaints and Work Conditions Breakdown</h3>
         </div>
         <div class="card-body">
-          <canvas id="pie-chart" class="pie" />
+          <canvas
+            id="pie-chart"
+            class="pie"
+          />
           <p>
-            Work conditions employee complaints.
+            This pie chart shows the percentage of employee complaints regarding various aspects
+            of their work conditions, such as long shifts, the city's deplorable state, and other
+            concerns like Batman's lack of scruples. It helps the town hall understand the most
+            pressing issues and take corrective measures to improve working conditions.
           </p>
-        </div>
-      </div>
-
-      <!-- Nouvelles cards supplémentaires -->
-      <div class="card schedule-card">
-        <div class="card-header">
-          <h3>Today's Schedule</h3>
-        </div>
-        <div class="card-body">
-          <div class="schedule-list">
-            <div class="schedule-item">
-              <span class="time">09:00</span>
-              <span class="event">Team Standup</span>
-              <span class="status pending">Pending</span>
-            </div>
-            <div class="schedule-item">
-              <span class="time">11:00</span>
-              <span class="event">Project Review</span>
-              <span class="status confirmed">Confirmed</span>
-            </div>
-            <div class="schedule-item">
-              <span class="time">14:00</span>
-              <span class="event">Client Meeting</span>
-              <span class="status confirmed">Confirmed</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card kpi-card">
-        <div class="card-header">
-          <h3>Key Metrics</h3>
-        </div>
-        <div class="card-body">
-          <div class="kpi-grid">
-            <div class="kpi-item">
-              <div class="kpi-label">Overtime Hours</div>
-              <div class="kpi-value">124h</div>
-              <div class="kpi-change negative">+12%</div>
-            </div>
-            <div class="kpi-item">
-              <div class="kpi-label">Time Off</div>
-              <div class="kpi-value">85h</div>
-              <div class="kpi-change positive">-5%</div>
-            </div>
-            <div class="kpi-item">
-              <div class="kpi-label">Late Arrivals</div>
-              <div class="kpi-value">8%</div>
-              <div class="kpi-change positive">-2%</div>
-            </div>
-            <div class="kpi-item">
-              <div class="kpi-label">Early Leaves</div>
-              <div class="kpi-value">5%</div>
-              <div class="kpi-change neutral">0%</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<!-- Ajoutez ces styles à votre section style existante -->
+<script>
+import { Chart, BarController, LineController, PieController, BarElement, LineElement, ArcElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
+import Meteo from './meteo.vue';
+
+export default {
+  components: {
+   Meteo
+  },
+  data() {
+    return {
+      barChartData: null,
+      lineChartData: null,
+      pieChartData: null,
+    };
+  },
+  mounted() {
+    Chart.register(
+      BarController,
+      LineController,
+      PieController,
+      BarElement,
+      LineElement,
+      PointElement,
+      ArcElement,
+      CategoryScale,
+      LinearScale,
+      Title,
+      Tooltip,
+      Legend
+    );
+
+    this.loadChartData();
+  },
+  methods: {
+    loadChartData() {
+      this.$axios.get(`/working_times?user_id=1`)
+        .then(response => {
+          const data = response.data;
+
+          if (data) {
+            this.barChartData = this.formatBarChartData(data);
+            this.lineChartData = this.formatLineChartData(data);
+            this.pieChartData = this.formatPieChartData(data);
+            this.renderCharts();
+          } else {
+            console.error('Pas de données trouvées pour les graphiques.');
+          }
+        })
+        .catch(error => {
+          console.error('Erreur lors du chargement des données du graphique :', error);
+        });
+    },
+    renderCharts() {
+      const ctxBar = document.getElementById('bar-chart').getContext('2d');
+      new Chart(ctxBar, {
+        type: 'bar',
+        data: this.barChartData,
+        options: {
+          maintainAspectRatio: false,
+          responsive: true
+        }
+      });
+
+      const ctxLine = document.getElementById('line-chart').getContext('2d');
+      new Chart(ctxLine, {
+        type: 'line',
+        data: this.lineChartData,
+        options: {
+          maintainAspectRatio: false,
+          responsive: true
+        }
+      });
+
+      const ctxPie = document.getElementById('pie-chart').getContext('2d');
+      new Chart(ctxPie, {
+        type: 'pie',
+        data: this.pieChartData,
+        options: {
+          maintainAspectRatio: false,
+          responsive: true
+        }
+      });
+    },
+    formatBarChartData(data) {
+      return {
+        labels: data.data.map(item => new Date(item.start).toLocaleDateString()),
+        datasets: [{
+          label: 'Heures de travail',
+          backgroundColor: '#42A5F5',
+          data: data.data.map(item => new Date(item.end) - new Date(item.start)),
+        }],
+      };
+    },
+    formatLineChartData(data) {
+      return {
+        labels: data.data.map(item => new Date(item.start).toLocaleDateString()),
+        datasets: [{
+          label: 'Heures de travail',
+          borderColor: '#66BB6A',
+          pointBackgroundColor: '#FF6384',
+          data: data.data.map(item => new Date(item.end) - new Date(item.start)),
+        }],
+      };
+    },
+    formatPieChartData(data) {
+      return {
+        labels: data.data.map(item => new Date(item.start).toLocaleDateString()),
+        datasets: [{
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+          data: data.data.map(item => new Date(item.end) - new Date(item.start)),
+        }],
+      };
+    },
+  },
+};
+</script>
+
 <style scoped>
-/* Vos styles existants restent inchangés */
-
-/* Nouveaux styles pour les stats rapides */
-.stats-container {
+.card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin: 0 auto 2rem;
-  padding: 0 20px;
-  max-width: 1600px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  width: 95%;
+  margin: 0 auto;
 }
 
-.stat-card {
-  background: white;
+.card {
+  background-color: white;
   border-radius: 8px;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.stat-icon {
-  font-size: 1.5rem;
-  margin-right: 1rem;
-  background: #f8fafc;
-  padding: 0.75rem;
-  border-radius: 8px;
-}
-
-.stat-content h4 {
-  color: #64748b;
-  font-size: 0.875rem;
-  margin: 0;
-}
-
-.stat-value {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #0f172a;
-  margin: 0.25rem 0;
-}
-
-.stat-change {
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.stat-change.positive {
-  color: #10b981;
-}
-
-.stat-change.negative {
-  color: #ef4444;
-}
-
-/* Styles pour les notifications */
-.notifications-section {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
-}
-
-.notifications-section h4 {
-  font-size: 0.875rem;
-  color: #64748b;
-  margin: 0 0 0.75rem 0;
-}
-
-.notifications-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.notifications-list li {
-  font-size: 0.875rem;
-  color: #0f172a;
-  padding: 0.5rem 0;
-  display: flex;
-  align-items: center;
-}
-
-.notification-dot {
-  width: 8px;
-  height: 8px;
-  background: #3b82f6;
-  border-radius: 50%;
-  margin-right: 0.75rem;
-}
-
-/* Styles pour le schedule */
-.schedule-list {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.3s;
+  height: 400px;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
 }
 
-.schedule-item {
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.1em;
+}
+
+.card-body {
+  flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem;
-  background: #f8fafc;
-  border-radius: 6px;
+  flex-direction: column;
+  overflow: hidden; /* Prevent content overflow */
 }
 
-.time {
-  font-weight: 500;
-  color: #64748b;
-  font-size: 0.875rem;
+canvas {
+  flex: 1;
+  max-height: 200px !important;
+  width: 100% !important;
+  margin-bottom: 10px;
 }
 
-.event {
-  color: #0f172a;
-  font-size: 0.875rem;
+h1 {
+  margin: 2% 0;
+  text-align: center;
+  color: #333;
+  font-size: 1.8em;
 }
 
-.status {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+/* Style pour la div fixe */
+.fixed-div {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 200px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  z-index: 1000;
 }
 
-.status.pending {
-  background: #fef3c7;
-  color: #92400e;
+.fixed-div h3 {
+  font-size: 1.2em;
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
-.status.confirmed {
-  background: #dcfce7;
-  color: #166534;
+.card p {
+  color: #666;
+  font-size: 0.85em;
+  line-height: 1.4;
+  margin-top: 10px;
 }
 
-/* Styles pour les KPIs */
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-}
-
-.kpi-item {
-  padding: 1rem;
-  background: #f8fafc;
-  border-radius: 6px;
-}
-
-.kpi-label {
-  font-size: 0.875rem;
-  color: #64748b;
-}
-
-.kpi-value {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #0f172a;
-  margin: 0.25rem 0;
-}
-
-.kpi-change {
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-/* Media queries supplémentaires */
-@media (max-width: 768px) {
-  .stats-container {
+@media (max-width: 1200px) {
+  .card-container {
     grid-template-columns: repeat(2, 1fr);
-    padding: 0 10px;
   }
 
-  .kpi-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .schedule-item {
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: flex-start;
+  .fixed-div {
+    position: static;
+    width: 100%;
+    margin-bottom: 20px;
   }
 }
-</style>  
+
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .card {
+    height: auto; /* Let content determine height */
+    min-height: 300px;
+    max-height: 450px;
+    padding: 12px;
+  }
+
+  .card-header h3 {
+    font-size: 1em;
+  }
+
+  canvas {
+    max-height: 180px !important;
+  }
+
+  .card p {
+    font-size: 0.8em;
+    line-height: 1.3;
+    margin-top: 8px;
+    /* Make text shorter on mobile */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  h1 {
+    font-size: 1.3em;
+    margin: 15px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-container {
+    width: 100%;
+    padding: 8px;
+    gap: 12px;
+  }
+
+  .card {
+    min-height: 250px;
+    max-height: 350px;
+    padding: 10px;
+  }
+
+  canvas {
+    max-height: 150px !important;
+  }
+
+  .fixed-div {
+    padding: 10px;
+  }
+
+  .card-header h3 {
+    font-size: 0.9em;
+  }
+
+  .card p {
+    font-size: 0.75em;
+    margin-top: 6px;
+    -webkit-line-clamp: 2; /* Show fewer lines on very small screens */
+  }
+}
+</style>
