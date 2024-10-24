@@ -71,6 +71,8 @@
 <script>
 import { Chart, BarController, LineController, PieController, BarElement, LineElement, ArcElement, PointElement, CategoryScale, LinearScale, Title } from 'chart.js';
 import Meteo from './meteo.vue';
+import axios from 'axios';
+import { auth } from './firebase';
 
 export default {
   components: {
@@ -81,6 +83,8 @@ export default {
       barChartData: null,
       lineChartData: null,
       pieChartData: null,
+      firebaseUserEmail: null,
+      role: sessionStorage.getItem('role')
     };
   },
   mounted() {
@@ -98,7 +102,10 @@ export default {
     );
 
     this.loadChartData();
+    this.getFirebaseUser();
+
   },
+  
   methods: {
     loadChartData() {
       this.$axios.get(`/working_times?user_id=1`)
@@ -167,6 +174,47 @@ export default {
         }],
       };
     },
+    getFirebaseUser() {
+      if (!this.role) {
+        const user = auth.currentUser;
+      if (user) {
+        this.firebaseUserEmail = user.email;
+        this.getAllUsers();
+      } else {
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            this.firebaseUserEmail = user.email;
+            this.getAllUsers();
+          }
+        });
+      }
+      }
+    },
+
+    getUserProfile(data) {
+      const foundUser = data.find(u => u.email === this.firebaseUserEmail);
+      if (foundUser) {
+        this.user = foundUser;
+        console.log('role:', foundUser.role)
+        sessionStorage.setItem("role", foundUser.role);
+          
+
+      } else {
+        console.log('Utilisateur non trouvé dans l\'API, mais email trouvé via Firebase');
+      }
+    },
+
+    getAllUsers() {
+      axios.get('https://time-manager-par2-58868fe31538.herokuapp.com/api/users')
+        .then(response => {
+          let users = response.data.data;
+          this.getUserProfile(users);
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération de la liste des utilisateurs :', error);
+        });
+    }
+
   },
 };
 </script>

@@ -13,6 +13,8 @@ import Signup from './components/SignupPage.vue';
 import { auth } from '../firebase';
 import MeteoVue from './components/MeteoVue.vue';
 import ProfilVue from './components/profilVue.vue';
+import EditUser from './components/EditUser.vue';
+import Forbidden from './components/forbidden.vue';
 
 axios.defaults.baseURL = 'https://time-manager-par2-58868fe31538.herokuapp.com/api';
 
@@ -22,12 +24,22 @@ const routes = [
   { path: '/workingTime/:userID', component: WorkingTime },
   { path: '/workingTime/:userID/:workingtimeID', component: WorkingTime },
   { path: '/clock/:userID', component: ClockManager },
-  { path: '/user', component: User },
+  //verifie si l'user est General manager
+  { path: '/user', component: User,beforeEnter: (to, from, next) => {
+  const user = sessionStorage.getItem('role');
+  if (user  === 'general_manager') {
+    next();
+  } else {
+    next('/forbidden');
+  }
+}, },
   { path: '/teams', component: TeamsComponent },
   { path: '/login', component: Login },
   { path: '/signup', component: Signup },
   { path: '/meteo', component: MeteoVue },
   { path: '/profil', component: ProfilVue },
+  { path: '/forbidden', name: 'forbidden', component: Forbidden },
+  { path: '/user/edit/:id', name: 'EditUser', component: EditUser, props: true }
 
 
 ];
