@@ -23,7 +23,7 @@
           Teams
         </router-link>
       </li>
-      <li>
+      <li v-if="role === 'general_manager'">
         <router-link to="/user">
           User Profile
         </router-link>
@@ -56,6 +56,7 @@ export default {
   data() {
     return {
       user: auth.currentUser,
+      role: sessionStorage.getItem("role")
     };
   },
   mounted() {

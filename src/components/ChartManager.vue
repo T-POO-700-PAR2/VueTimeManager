@@ -1,15 +1,12 @@
 <template>
   <div>
     <h1>Time Management and Work Conditions Overview</h1>
-    
-    <!-- Div fixe -->
     <div class="fixed-div">
       <h3>Méteo</h3>
       <Meteo />
     </div>
 
     <div class="card-container">
-      <!-- Bar Chart Card -->
       <div class="card">
         <div class="card-header">
           <h3>Work Hours Distribution by Category</h3>
@@ -28,7 +25,6 @@
         </div>
       </div>
       
-      <!-- Line Chart Card -->
       <div class="card">
         <div class="card-header">
           <h3>Employee Performance Over Time</h3>
@@ -46,7 +42,6 @@
         </div>
       </div>
       
-      <!-- Pie Chart Card -->
       <div class="card">
         <div class="card-header">
           <h3>Complaints and Work Conditions Breakdown</h3>
@@ -222,7 +217,6 @@ export default {
 h1{
   margin-top: 2%;
 }
-  /* Style global pour la page */
   body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -237,18 +231,17 @@ h1{
     font-size: 1.8em;
   }
 
-  /* Style pour la div fixe */
   .fixed-div {
     position: fixed;
-    top: 226px; /* Ajuste cette valeur selon la hauteur souhaitée */
-    right: 20px; /* Place à droite avec un peu de marge */
+    top: 226px; 
+    right: 20px; 
     width: 200px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     padding: 15px;
-    z-index: 1000; /* Pour s'assurer qu'elle reste visible au-dessus du reste */
+    z-index: 1000; 
   }
 
   .fixed-div h3 {
@@ -276,7 +269,6 @@ h1{
     text-decoration: underline;
   }
 
-  /* Style pour les cards */
   .card {
     background-color: white;
     border-radius: 8px;
@@ -285,7 +277,7 @@ h1{
     padding: 15px;
     transition: transform 0.3s;
     max-width: 385px;
-    margin: 0 auto 20px auto; /* centrage et espace entre les cards */
+    margin: 0 auto 20px auto;
   }
 
   .card:hover {
@@ -308,7 +300,6 @@ h1{
     line-height: 1.4;
   }
 
-  /* Style des graphiques */
   canvas {
     width: 100% !important;
     max-width: 100%;
@@ -316,20 +307,18 @@ h1{
     margin-bottom: 10px;
   }
 
-  /* Style pour le conteneur des cards */
   .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 15px;
   }
 
-  /* Responsive */
   @media (max-width: 768px) {
     .fixed-div {
       top: auto;
       bottom: 20px;
       right: 10px;
-      width: 160px; /* Réduire un peu la largeur sur mobile */
+      width: 160px; 
     }
 
     .card {

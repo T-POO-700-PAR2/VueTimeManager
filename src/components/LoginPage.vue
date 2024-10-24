@@ -43,7 +43,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
     return {
       email: "",
       password: "",
-      user: null, // Pour stocker les informations de l'utilisateur connecté
+      user: null,
     };
   },
   methods: {
