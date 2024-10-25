@@ -190,10 +190,8 @@ export default {
       const foundUser = data.find(u => u.email === this.firebaseUserEmail);
       if (foundUser) {
         this.user = foundUser;
-        console.log('role:', foundUser.role)
         sessionStorage.setItem("role", foundUser.role);
-          
-
+        sessionStorage.setItem("id", foundUser.id);
       } else {
         console.log('Utilisateur non trouvé dans l\'API, mais email trouvé via Firebase');
       }

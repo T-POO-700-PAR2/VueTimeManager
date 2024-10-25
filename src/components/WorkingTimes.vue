@@ -1,6 +1,6 @@
 <template>
   <div class="working-times-container">
-    <h2>Temps de travail pour l'utilisateur {{ username }}</h2>
+    <h2>Temps de travail pour {{ username }}</h2>
     <div v-if="workingTimes && workingTimes.length > 0">
       <ul class="working-times-list">
         <li
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       workingTimes: [],
-      userId: 5,
+      userId: sessionStorage.getItem('id'),
       username: '',
       lineChart: null
     };
