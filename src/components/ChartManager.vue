@@ -192,6 +192,7 @@ export default {
         this.user = foundUser;
         sessionStorage.setItem("role", foundUser.role);
         sessionStorage.setItem("id", foundUser.id);
+        sessionStorage.setItem("id", foundUser.username);
       } else {
         console.log('Utilisateur non trouvé dans l\'API, mais email trouvé via Firebase');
       }

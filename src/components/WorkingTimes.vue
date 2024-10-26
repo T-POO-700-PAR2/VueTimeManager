@@ -31,17 +31,17 @@ export default {
     return {
       workingTimes: [],
       userId: sessionStorage.getItem('id'),
-      username: '',
+      username: sessionStorage.getItem('username'),
       lineChart: null
     };
   },
   mounted() {
     this.getWorkingTimes();
-    this.fetchUserInfo();
   },
   methods: {
     getWorkingTimes() {
-      this.$axios.get(`https://time-manager-par2-58868fe31538.herokuapp.com/api/working_times?user_id=${this.userId}`)
+    //this.$axios.get(`https://time-manager-par2-58868fe31538.herokuapp.com/api/working_times?user_id=${this.userId}`)
+      this.$axios.get(`http://localhost:4000/api/working_times/${this.userId}`)
         .then(response => {
           this.workingTimes = response.data.data;
           this.$nextTick(() => {
@@ -50,16 +50,6 @@ export default {
         })
         .catch(error => {
           console.error('Erreur lors de la récupération des temps de travail:', error);
-        });
-    },
-
-    fetchUserInfo() {
-      this.$axios.get(`https://time-manager-par2-58868fe31538.herokuapp.com/api/users/${this.userId}`)
-        .then(response => {
-          this.username = response.data.data.username;
-        })
-        .catch(error => {
-          console.error('Erreur lors de la récupération des informations utilisateur :', error);
         });
     },
 
