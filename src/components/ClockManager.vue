@@ -1,4 +1,4 @@
-<template>
+Copy<template>
   <div class="work-time-container">
     <h2>Gestion des horaires pour {{ username }}</h2>
     <p class="description">
@@ -14,7 +14,7 @@
     </button>
     <p v-if="isLoading" class="status-message">Chargement...</p>
   </div>
-</template>
+</template> 
 
 <script>
 export default {
@@ -132,8 +132,9 @@ export default {
 
 <style scoped>
 .work-time-container {
-  width: 80vw;
-  margin: 40px auto;
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
   padding: 20px;
   background-color: #f4f4f9;
   border-radius: 10px;
@@ -144,24 +145,30 @@ export default {
 h2 {
   color: #333;
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: clamp(18px, 4vw, 24px);
+  padding: 0 10px;
 }
 
 .description {
-  font-size: 16px;
+  font-size: clamp(14px, 3vw, 16px);
   color: #666;
   margin-bottom: 20px;
+  padding: 0 15px;
+  line-height: 1.4;
 }
 
 .clock-btn {
-  padding: 15px 30px;
-  font-size: 18px;
+  padding: clamp(12px, 3vw, 15px) clamp(20px, 5vw, 30px);
+  font-size: clamp(16px, 3.5vw, 18px);
   color: white;
   background-color: #36a2eb;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s ease-in-out;
+  width: fit-content;
+  min-width: 200px;
+  margin: 0 auto;
 }
 
 .clock-btn:hover:not(:disabled) {
@@ -174,7 +181,7 @@ h2 {
 
 .clock-btn.active {
   background-color: #eb4034;
-}
+} 
 
 .clock-btn.active:hover:not(:disabled) {
   background-color: #d13428;
@@ -186,8 +193,43 @@ h2 {
 }
 
 .status-message {
-  margin-top: 10px;
+  margin-top: 15px;
   color: #666;
   font-style: italic;
+  font-size: clamp(12px, 2.5vw, 14px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .work-time-container {
+    width: 95%;
+    margin: 15px auto;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .work-time-container {
+    width: 100%;
+    margin: 10px auto;
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .clock-btn {
+    min-width: 180px;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 320px) {
+  .work-time-container {
+    padding: 10px;
+  }
+
+  .clock-btn {
+    min-width: 160px;
+    width: 90%;
+  }
 }
 </style>

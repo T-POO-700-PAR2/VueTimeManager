@@ -21,9 +21,7 @@
           />
           <p>
             This bar chart displays the distribution of work hours among employees, managers,
-            and the general manager. It helps visualize how time is spent across different
-            categories, shedding light on the workload disparity and areas of concern, such as
-            excessive working hours.
+            and the general manager.
           </p>
         </div>
       </div>
@@ -40,8 +38,7 @@
           />
           <p>
             This line chart tracks the daily and weekly performance of employees over a selected
-            period. It helps managers and the general manager monitor trends in productivity,
-            spot unusual patterns, and ensure employees are not overworked due to extended shifts.
+            period.
           </p>
         </div>
       </div>
@@ -58,9 +55,7 @@
           />
           <p>
             This pie chart shows the percentage of employee complaints regarding various aspects
-            of their work conditions, such as long shifts, the city's deplorable state, and other
-            concerns like Batman's lack of scruples. It helps the town hall understand the most
-            pressing issues and take corrective measures to improve working conditions.
+            of their work conditions.
           </p>
         </div>
       </div>

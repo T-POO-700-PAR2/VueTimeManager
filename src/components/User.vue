@@ -1,70 +1,70 @@
 <template>
-  <div class="user-management-container">
-    <h2>Gestion des utilisateurs</h2>
-    <form
-      class="create-user-form"
-      @submit.prevent="createUser"
-    >
-      <input
-        v-model="newUser.username"
-        placeholder="Nom d'utilisateur"
-        required
+  <div class="user-view">
+    <div class="user-management-container">
+      <h2>Gestion des utilisateurs</h2>
+      <form
+        class="create-user-form"
+        @submit.prevent="createUser"
       >
-      <input
-        v-model="newUser.email"
-        placeholder="Email"
-        type="email"
-        required
-      >
-      <input
-        v-model="newUser.role"
-        placeholder="Rôle"
-        required
-      >
-      <button
-        class="create-btn"
-        type="submit"
-      >
-        Créer Utilisateur
-      </button>
-    </form>
-    <hr class="divider">
-    <input
-      v-model="searchQuery"
-      class="search-input"
-      placeholder="Rechercher un utilisateur..."
-    >
-    <div
-      v-if="filteredUsers.length > 0"
-      class="user-list-container"
-    >
-      <h3>Liste des utilisateurs :</h3>
-      <ul class="user-list">
-        <li
-          v-for="user in filteredUsers"
-          :key="user.id"
-          class="user-item"
+        <input
+          v-model="newUser.username"
+          placeholder="Nom d'utilisateur"
+          required
         >
-          <span class="user-info">{{ user.username }}</span>
-          <span class="user-info">{{ user.email }}</span>
-          <span class="user-info">{{ user.role }}</span>
-        </li>
-      </ul>
+        <input
+          v-model="newUser.email"
+          placeholder="Email"
+          type="email"
+          required
+        >
+        <input
+          v-model="newUser.role"
+          placeholder="Rôle"
+          required
+        >
+        <button
+          class="create-btn"
+          type="submit"
+        >
+          Créer Utilisateur
+        </button>
+      </form>
+      <hr class="divider">
+      <input
+        v-model="searchQuery"
+        class="search-input"
+        placeholder="Rechercher un utilisateur..."
+      >
+      <div
+        v-if="filteredUsers.length > 0"
+        class="user-list-container"
+      >
+        <h3>Liste des utilisateurs :</h3>
+        <ul class="user-list">
+          <li
+            v-for="user in filteredUsers"
+            :key="user.id"
+            class="user-item"
+          >
+            <span class="user-info">{{ user.username }}</span>
+            <span class="user-info">{{ user.email }}</span>
+            <span class="user-info">{{ user.role }}</span>
+          </li>
+        </ul>
+      </div>
+      <div v-else>
+        <p class="no-user">
+          Aucun utilisateur trouvé.
+        </p>
+      </div>
+      <hr class="divider">
     </div>
-    <div v-else>
-      <p class="no-user">
-        Aucun utilisateur trouvé.
-      </p>
-    </div>
-    <hr class="divider">
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
-  name: 'UserManagement',
+  name: 'UserManagementView',
   data() {
     return {
       userId: 1,
@@ -90,25 +90,29 @@ export default {
     this.getAllUsers();
   },
   methods: {
-    createUser() {
-      axios.post('https://time-manager-par2-58868fe31538.herokuapp.com/api/users', {
-        user: this.newUser
-      })
-        .then(() => {
-          this.getAllUsers();
-        })
-        .catch(error => {
-          console.error('Erreur lors de la création de l\'utilisateur :', error);
-        });
-    },
-    
     getAllUsers() {
-      axios.get('https://time-manager-par2-58868fe31538.herokuapp.com/api/users')
+      this.$axios.get('/users')
         .then(response => {
           this.users = response.data.data;
         })
         .catch(error => {
-          console.error('Erreur lors de la récupération de la liste des utilisateurs :', error);
+          console.error('Erreur lors de la récupération des utilisateurs:', error);
+        });
+    },
+    createUser() {
+      this.$axios.post('/users', {
+        user: this.newUser
+      })
+        .then(() => {
+          this.getAllUsers();
+          this.newUser = {
+            username: '',
+            email: '',
+            role: ''
+          };
+        })
+        .catch(error => {
+          console.error('Erreur lors de la création de l\'utilisateur:', error);
         });
     }
   }
@@ -116,106 +120,99 @@ export default {
 </script>
 
 <style scoped>
-/* Conteneur principal */
-.user-management-container {
-  max-width: 800px;
-  margin: 20px auto;
+.user-view {
   padding: 20px;
-  background-color: #f7f7f7;
+}
+
+.user-management-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #f7f7f7;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Titre principal */
-h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
-  font-size: 24px;
-}
-
-/* Formulaire de création d'utilisateur */
 .create-user-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .create-user-form input {
   padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 .create-btn {
-  padding: 10px 15px;
-  background-color: #36A2EB;
-  color: #fff;
+  padding: 10px;
+  background: #36A2EB;
+  color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .create-btn:hover {
-  background-color: #258cd1;
+  background: #2e8cd1;
 }
 
-/* Barre de recherche */
 .search-input {
   width: 100%;
   padding: 10px;
   margin: 20px 0;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-/* Liste des utilisateurs */
-.user-list-container {
-  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 .user-list {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .user-item {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 15px;
+  background: white;
   margin-bottom: 10px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  font-size: 16px;
-  color: #4a4a4a;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .user-info {
   flex: 1;
-  text-align: left;
-  color: #333;
+  padding: 0 10px;
 }
 
-.user-info:not(:last-child) {
-  margin-right: 10px;
-}
-
-/* Texte pour les utilisateurs non trouvés */
-.no-user {
-  text-align: center;
-  color: #999;
-  font-size: 16px;
-}
-
-/* Ligne de séparation */
 .divider {
-  margin: 20px 0;
   border: none;
-  height: 1px;
-  background-color: #ccc;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+  .user-item {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .user-info {
+    padding: 5px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-view {
+    padding: 10px;
+  }
+  
+  .user-management-container {
+    padding: 15px;
+  }
 }
 </style>
